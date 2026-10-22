@@ -91,7 +91,7 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .gt{position:fixed;left:50%;bottom:calc(var(--bh) + 20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:3000;background:rgba(30,18,44,.96);border:1px solid rgba(255,255,255,.15);padding:10px 18px;border-radius:30px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;max-width:90vw;text-align:center}.gt.show{opacity:1;transform:translate(-50%,0)}
 .adm{position:fixed;inset:0;z-index:1500;background:var(--bg);overflow-y:auto;display:none;padding-bottom:40px}.adm.open{display:block}
 .fm{max-width:600px;margin:0 auto;padding:14px;display:flex;flex-direction:column;gap:12px}
-.fm input[type=text],.fm input[type=url]{width:100%;padding:13px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:16px;outline:0}
+.fm input:not([type=file]){width:100%;padding:13px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:16px;outline:0}
 .fm input:focus{border-color:var(--rose)}
 .pick{position:relative;display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border:2px dashed rgba(255,255,255,.25);border-radius:12px;color:var(--ts);overflow:hidden;cursor:pointer;text-align:center;padding:10px}
 .pick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -100,6 +100,17 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .ai{display:flex;gap:10px;align-items:center;background:var(--card);border-radius:12px;padding:8px;margin-bottom:8px}
 .ai img{width:80px;height:45px;object-fit:cover;border-radius:6px;flex:none}.ai span{flex:1;font-size:13px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .ai button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px}.ai .dl{color:#ff7aa2}
+.nw{position:absolute;top:8px;left:8px;z-index:2;font-size:10.5px;font-weight:900;letter-spacing:.6px;padding:3px 9px;border-radius:7px;color:#fff;background:linear-gradient(135deg,#ff6a00,#ff2d55);animation:fire 1.3s ease-in-out infinite alternate}
+@keyframes fire{from{box-shadow:0 0 6px #ff6a00,0 0 14px rgba(255,106,0,.6)}to{box-shadow:0 0 12px #ff2d55,0 0 26px rgba(255,45,85,.85);transform:scale(1.06)}}
+.vw{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ts);margin-top:6px}
+.vw svg,#pV svg,.ai svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px;flex:none}
+#pV{display:inline-flex;align-items:center;gap:5px;margin-right:10px}
+.fp{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;touch-action:none;cursor:ns-resize;border:2px solid var(--rose)}
+.fp img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.fp small{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:11px;padding:4px;background:rgba(0,0,0,.6);pointer-events:none}
+.bc{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
+body.fs .pv{overflow:hidden}
+.pw.rot{top:0;left:100%;right:auto;bottom:auto;width:100dvh;height:100dvw;transform:rotate(90deg);transform-origin:0 0}
 </style></head>
 <body oncontextmenu="return false" ondragstart="return false">
 
@@ -114,7 +125,7 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 <div class="hc"><span class="tag">♥ Featured Tonight</span><h1 class="ht" id="hT">Loading...</h1>
 <div class="hb"><button class="btn bp" id="hP">▶ Play Now</button><button class="btn bg" id="hS">🎲 Surprise Me</button></div></div>
 <div class="dots" id="dots"></div></section>
-<div id="secs">
+<div id="secs"><section class="sec hidden" id="newS"><div class="sh"><h2 class="st"><i>🔥</i>New Tonight</h2></div><div class="row" id="r0"></div></section>
 <section class="sec"><div class="sh"><h2 class="st"><i>🔥</i>Viral</h2><button class="shuf" onclick="rows()">↻ Shuffle</button></div><div class="row" id="r1"></div></section>
 <section class="sec"><div class="sh"><h2 class="st"><i>🌙</i>Trending</h2></div><div class="row" id="r2"></div></section></div>
 <section class="sec"><div class="sh"><h2 class="st" id="allT"><i>🎬</i>All Videos</h2></div>
@@ -131,7 +142,7 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 <div class="pr"><span id="ct">0:00</span>/<span id="dt">0:00</span><span class="sp"></span><button class="pbn" id="spd">1x</button><button class="pbn" id="mt">🔊</button><button class="pbn" id="fs">⛶</button></div></div></div>
 <div class="tst" id="tst"></div>
 <div class="ag"><div class="ld"></div><p><b>Ad playing…</b><br>Your video starts right after ♥</p></div></div>
-<div class="pinfo"><div class="ptt" id="pTt">—</div><div class="pm"><span>♥ Enjoy the night</span></div><div class="err" id="err"></div></div>
+<div class="pinfo"><div class="ptt" id="pTt">—</div><div class="pm"><span id="pV"></span><span>♥ Enjoy the night</span></div><div class="err" id="err"></div></div>
 <div class="more2"><div class="sh"><h2 class="st"><i>✨</i>More For You</h2></div><div class="grid" id="rel"></div></div>
 </div>
 
@@ -140,9 +151,13 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 <div class="fm"><input type="text" id="aT" placeholder="Video title" maxlength="150">
 <input type="url" id="aU" placeholder="Video link (https://...)" inputmode="url">
 <label class="pick"><input type="file" id="aF" accept="image/*" hidden><img id="aI" class="hidden"><span id="aS">📷 Tap to pick thumbnail from gallery</span></label>
-<input type="url" id="aTU" placeholder="or paste thumbnail link (optional)" inputmode="url">
+<div class="fp hidden" id="aFp"><img id="aFi" alt=""><small>Drag up / down to choose the visible part</small></div><input type="url" id="aTU" placeholder="or paste thumbnail link (optional)" inputmode="url">
 <button class="btn bp" id="aGo" style="justify-content:center">Publish video</button><button class="btn bg hidden" id="aCx" style="justify-content:center">Cancel edit</button><div class="am" id="aM"></div></div>
-<div class="sh"><h2 class="st">All videos (<span id="aN">0</span>)</h2></div><div class="al" id="aL"></div></div>
+<div class="fm bc"><h2 class="st"><i>📣</i>Send Notification</h2>
+<input type="number" id="nN" placeholder="Number of new videos" inputmode="numeric" min="1">
+<input type="password" id="nTok" placeholder="Bot token (saved only on this device)" autocomplete="off">
+<button class="btn bp" id="nGo" style="justify-content:center">Send to all users</button><div class="am" id="nM"></div></div>
+<div class="sh"><h2 class="st">All videos (<span id="aN">0</span>) · <span id="aV">0</span> views</h2></div><div class="al" id="aL"></div></div>
 
 <div class="banner"><iframe id="bf" title="ad" scrolling="no"></iframe></div>
 <div class="gt" id="gt"></div>
@@ -157,6 +172,7 @@ const CFG={ADMIN_ID:8970065762,IMGBB:'https://api.imgbb.com/1/upload',IMGBB_KEY:
  AD_ON_BACK:true,// show an ad when leaving a watched video
  STRICT:false,   // true = never play if no ad could be shown
  BANNER:'ee83cc457fa55243ef8b736e7c147e96',
+ APP_URL:'https://bibx-mod.github.io/Neoali/', // opened by the notification button
  PREVIEW:false}; // true = open outside Telegram (admin in browser: add #admin to URL)
 const firebaseConfig={apiKey:"AIzaSyCPKDFVw5i3Da8JPUU8GhEZssdY79qLKNA",authDomain:"app-glaxy.firebaseapp.com",databaseURL:"https://app-glaxy-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"app-glaxy",storageBucket:"app-glaxy.firebasestorage.app",messagingSenderId:"484036615126",appId:"1:484036615126:web:YOUR_WEB_APP_ID"};
 const DB=firebaseConfig.databaseURL;
@@ -174,6 +190,10 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const FALL='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs><linearGradient id="g"><stop offset="0" stop-color="#2a1240"/><stop offset="1" stop-color="#5a1c52"/></linearGradient></defs><rect width="400" height="225" fill="url(#g)"/><text x="200" y="130" font-size="56" text-anchor="middle" fill="#ff4d8d">♥</text></svg>');
 const thumb=v=>v.thumb&&/^https?:/.test(v.thumb)?v.thumb:FALL;
+const pos=v=>'object-position:50% '+(v.pos==null?50:v.pos)+'%';
+const isNew=v=>!!v.at&&Date.now()-v.at<864e5;
+const kfmt=n=>{n=n||0;return n>=1e6?(n/1e6).toFixed(1).replace('.0','')+'M':n>=1e3?(n/1e3).toFixed(1).replace('.0','')+'K':String(n)};
+const EYE='<svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
 const fmt=t=>{if(!isFinite(t))return'0:00';const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=Math.floor(t%60);return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
 let tT;function toast(m){const e=$('#gt');e.textContent=m;e.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>e.classList.remove('show'),2600)}
 
@@ -196,7 +216,7 @@ function setVideos(a){
 }
 function card(v){
  const c=document.createElement('div');c.className='vc';
- c.innerHTML='<div class="tw"><img src="'+esc(thumb(v))+'" alt="" loading="lazy"><span class="pi">▶</span></div><div class="vi"><div class="vt">'+esc(v.title||'Untitled')+'</div></div>';
+ c.innerHTML='<div class="tw"><img src="'+esc(thumb(v))+'" style="'+pos(v)+'" alt="" loading="lazy">'+(isNew(v)?'<span class="nw">🔥 NEW</span>':'')+'<span class="pi">▶</span></div><div class="vi"><div class="vt">'+esc(v.title||'Untitled')+'</div><div class="vw">'+EYE+' '+kfmt(v.views)+'</div></div>';
  c.querySelector('img').onerror=function(){this.onerror=null;this.src=FALL};
  c.onclick=()=>play(v);return c}
 function more(){
@@ -213,8 +233,8 @@ function search(q,keep){
 /* ============ HERO / ROWS ============ */
 let hi=[],hx=0,ht;
 function initHero(){
- hi=shuf(all).slice(0,6);$('#slides').innerHTML='';$('#dots').innerHTML='';
- hi.forEach((v,i)=>{const s=document.createElement('div');s.className='slide';const m=document.createElement('img');m.src=thumb(v);m.alt='';m.onerror=function(){this.onerror=null;this.src=FALL};s.appendChild(m);$('#slides').appendChild(s);
+ hi=shuf(all.filter(isNew)).concat(shuf(all.filter(v=>!isNew(v)))).slice(0,6);$('#slides').innerHTML='';$('#dots').innerHTML='';
+ hi.forEach((v,i)=>{const s=document.createElement('div');s.className='slide';const m=document.createElement('img');m.src=thumb(v);m.alt='';m.style.objectPosition='50% '+(v.pos==null?50:v.pos)+'%';m.onerror=function(){this.onerror=null;this.src=FALL};s.appendChild(m);$('#slides').appendChild(s);
   const d=document.createElement('span');d.className='dot';d.onclick=()=>{slide(i);rh()};$('#dots').appendChild(d)});
  slide(0);rh();
  const p=$('#petals');p.innerHTML='';['♥','❤','✦','♡'].forEach((y,k)=>{for(let i=0;i<4;i++){const e=document.createElement('span');e.className='petal';e.textContent=y;e.style.cssText='left:'+Math.random()*100+'%;font-size:'+(10+Math.random()*14)+'px;animation-duration:'+(7+Math.random()*7)+'s;animation-delay:'+Math.random()*8+'s'+(k==1?';color:#ffcf8b':'');p.appendChild(e)}});
@@ -222,7 +242,7 @@ function initHero(){
 function slide(i){hx=i;document.querySelectorAll('.slide').forEach((s,k)=>{if(k===i){s.classList.remove('active');void s.offsetWidth;s.classList.add('active')}else s.classList.remove('active')});
  document.querySelectorAll('.dot').forEach((d,k)=>d.classList.toggle('active',k===i));const t=$('#hT');t.style.animation='none';void t.offsetWidth;t.style.animation='';t.textContent=hi[i].title||'Untitled'}
 function rh(){clearInterval(ht);if(hi.length>1)ht=setInterval(()=>slide((hx+1)%hi.length),5000)}
-function rows(){const p=shuf(all),n=Math.min(15,Math.ceil(p.length/2));
+function rows(){const nv=all.filter(isNew);$('#newS').classList.toggle('hidden',!nv.length);const e0=$('#r0');e0.innerHTML='';nv.forEach(v=>e0.appendChild(card(v)));const p=shuf(all),n=Math.min(15,Math.ceil(p.length/2));
  [['r1',p.slice(0,n)],['r2',p.slice(n,n*2).length?p.slice(n,n*2):p.slice(0,n)]].forEach(([id,a])=>{const e=$('#'+id);e.innerHTML='';a.forEach(v=>e.appendChild(card(v)));e.scrollLeft=0})}
 
 /* ============ ADS: Monetag + AdsGalaxy, alternating with fallback ============ */
@@ -245,7 +265,7 @@ async function adFlow(tk){
 
 /* ============ PLAYER ============ */
 const P=$('#P'),pw=$('#pw'),sk=$('#sk');
-let hls=null,openP=false,token=0,played=false,curUrl='',att=0,stallT,idleT,toT,mem=0;
+let hls=null,openP=false,token=0,played=false,curUrl='',att=0,stallT,idleT,toT,mem=0,curV=null,vc=false;
 function ptoast(m,side){const t=$('#tst');t.textContent=m;t.style.left=side<0?'22%':side>0?'78%':'50%';t.classList.add('show');clearTimeout(toT);toT=setTimeout(()=>t.classList.remove('show'),700)}
 function wake(){pw.classList.remove('idle');clearTimeout(idleT);if(!P.paused)idleT=setTimeout(()=>pw.classList.add('idle'),3000)}
 function stopMedia(){clearTimeout(stallT);if(hls){hls.destroy();hls=null}P.pause();P.removeAttribute('src');P.load()}
@@ -260,7 +280,7 @@ function reco(why){
  att++;const t=P.currentTime||ls.g('p:'+curUrl,0);toast('Reconnecting ('+att+'/'+CFG.TRIES+')…');
  setTimeout(()=>{if(openP&&!pw.classList.contains('adw'))load(t)},1200*att)}
 async function play(v){
- openPlayer();$('#err').innerHTML='';$('#pTt').textContent=v.title||'Untitled';stopMedia();played=false;mem=0;curUrl='';
+ openPlayer();$('#err').innerHTML='';$('#pTt').textContent=v.title||'Untitled';stopMedia();played=false;mem=0;curUrl='';curV=v;vc=false;$('#pV').innerHTML=EYE+' '+kfmt(v.views)+' views';
  const r=$('#rel');r.innerHTML='';shuf(all.filter(x=>x!==v)).slice(0,12).forEach(x=>r.appendChild(card(x)));$('#pv').scrollTop=0;
  try{const l=document.createElement('link');l.rel='preconnect';l.href=new URL(v.url).origin;document.head.appendChild(l)}catch(e){}
  const tk=++token;pw.classList.add('adw');
@@ -270,18 +290,18 @@ async function play(v){
  curUrl=v.url;att=0;load(ls.g('p:'+v.url,0));wake()}
 function openPlayer(){if(!openP){openP=true;history.pushState({p:1},'')}$('#pv').classList.add('open');document.body.classList.add('noscroll');clearInterval(ht);if(tg&&tg.BackButton)safe(()=>tg.BackButton.show())}
 function closeP(){
- if(!openP)return;openP=false;token++;const w=played;pw.classList.remove('adw','ffs');document.body.classList.remove('fs');
+ if(!openP)return;openP=false;token++;const w=played;pw.classList.remove('adw');if(pw.classList.contains('ffs'))ffs(false);
  if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
  stopMedia();curUrl='';$('#pv').classList.remove('open');document.body.classList.remove('noscroll');rh();
  if(tg&&tg.BackButton)safe(()=>tg.BackButton.hide());
  if(w&&CFG.AD_ON_BACK)setTimeout(()=>adFlow(0),400)}
-const goBack=()=>{if(history.state&&history.state.p)history.back();else closeP()};
-$('#bk').onclick=goBack;addEventListener('popstate',closeP);if(tg&&tg.BackButton)safe(()=>tg.BackButton.onClick(goBack));
+const goBack=()=>{if(pw.classList.contains('ffs')){ffs(false);return}if(history.state&&history.state.p)history.back();else closeP()};
+$('#bk').onclick=goBack;addEventListener('popstate',()=>{if(pw.classList.contains('ffs')){ffs(false);history.pushState({p:1},'');return}closeP()});if(tg&&tg.BackButton)safe(()=>tg.BackButton.onClick(goBack));
 
 const tgl=()=>P.paused?P.play().catch(()=>{}):P.pause();
 function skip(s,side){P.currentTime=Math.max(0,Math.min(P.duration||0,P.currentTime+s));ptoast((s>0?'⏩ +':'⏪ ')+s+'s',side);wake()}
 let gT=null,lastT=0,chain=0;
-function gest(e,single){const r=pw.getBoundingClientRect(),side=(e.clientX-r.left)<r.width/2?-1:1,n=Date.now();
+function gest(e,single){const r=pw.getBoundingClientRect(),side=(pw.classList.contains('rot')?(e.clientY-r.top)<r.height/2:(e.clientX-r.left)<r.width/2)?-1:1,n=Date.now();
  if(n-chain<700||(gT&&n-lastT<300)){clearTimeout(gT);gT=null;skip(side*10,side);chain=n;lastT=0;return}
  lastT=n;gT=setTimeout(()=>{gT=null;single()},260)}
 $('#po').addEventListener('click',e=>{if(e.target.closest('button')||e.target.closest('.pb')){wake();return}gest(e,()=>{if(pw.classList.contains('idle'))wake();else if(!P.paused)pw.classList.add('idle')})});
@@ -289,10 +309,14 @@ $('#bp').onclick=e=>{e.stopPropagation();gest(e,()=>{tgl();wake()})};
 $('#sb1').onclick=e=>{e.stopPropagation();skip(-10,-1)};$('#sf1').onclick=e=>{e.stopPropagation();skip(10,1)};
 $('#mt').onclick=e=>{e.stopPropagation();P.muted=!P.muted;e.target.textContent=P.muted?'🔇':'🔊'};
 const SP=[1,1.25,1.5,2,.75];let si=0;$('#spd').onclick=e=>{e.stopPropagation();si=(si+1)%SP.length;P.playbackRate=SP[si];e.target.textContent=SP[si]+'x'};
-function ffs(on){pw.classList.toggle('ffs',on);document.body.classList.toggle('fs',on);safe(()=>on?screen.orientation.lock('landscape').catch(()=>{}):screen.orientation.unlock())}
-$('#fs').onclick=e=>{e.stopPropagation();if(document.fullscreenElement){document.exitFullscreen();return}if(pw.classList.contains('ffs')){ffs(false);return}pw.requestFullscreen?pw.requestFullscreen().catch(()=>ffs(true)):ffs(true)};
+const fit=()=>pw.classList.toggle('rot',pw.classList.contains('ffs')&&innerHeight>innerWidth);
+function ffs(on){pw.classList.toggle('ffs',on);document.body.classList.toggle('fs',on);
+ if(on){safe(()=>tg.requestFullscreen&&tg.requestFullscreen());safe(()=>{const o=screen.orientation.lock('landscape');o&&o.catch&&o.catch(()=>{})});setTimeout(fit,450)}
+ else{pw.classList.remove('rot');safe(()=>tg.exitFullscreen&&tg.exitFullscreen());safe(()=>screen.orientation.unlock())}}
+addEventListener('resize',()=>setTimeout(fit,150));
+$('#fs').onclick=e=>{e.stopPropagation();ffs(!pw.classList.contains('ffs'))};
 sk.addEventListener('input',()=>{if(P.duration)P.currentTime=sk.value/1000*P.duration;sk.style.setProperty('--p',sk.value/10+'%');wake()});
-P.addEventListener('timeupdate',()=>{if(!P.duration)return;const p=P.currentTime/P.duration*1000;if(document.activeElement!==sk){sk.value=p;sk.style.setProperty('--p',p/10+'%')}$('#ct').textContent=fmt(P.currentTime);
+P.addEventListener('timeupdate',()=>{if(curV&&!vc&&!P.paused&&P.currentTime>=3)countView(curV);if(!P.duration)return;const p=P.currentTime/P.duration*1000;if(document.activeElement!==sk){sk.value=p;sk.style.setProperty('--p',p/10+'%')}$('#ct').textContent=fmt(P.currentTime);
  if(curUrl&&Date.now()-mem>3000&&P.currentTime>0){mem=Date.now();ls.s('p:'+curUrl,P.currentTime)}});
 P.addEventListener('loadedmetadata',()=>$('#dt').textContent=fmt(P.duration));P.addEventListener('durationchange',()=>$('#dt').textContent=fmt(P.duration));
 P.addEventListener('play',()=>{$('#bp').textContent='❚❚';wake()});P.addEventListener('pause',()=>{$('#bp').textContent='▶';wake()});
@@ -306,14 +330,14 @@ document.addEventListener('keydown',e=>{if(!openP)return;if(e.key===' '){e.preve
 /* ============ ADMIN ============ */
 let editId=null,file=null;
 const am=(m,e)=>{const x=$('#aM');x.textContent=m;x.className='am'+(e?' e':'')};
-$('#admB').onclick=()=>{$('#adm').classList.add('open');document.body.classList.add('noscroll');admList()};
+$('#admB').onclick=()=>{$('#adm').classList.add('open');document.body.classList.add('noscroll');$('#nN').value=all.filter(isNew).length||'';$('#nTok').value=ls.g('btk','');admList()};
 $('#admX').onclick=()=>{$('#adm').classList.remove('open');document.body.classList.remove('noscroll')};
-function admReset(){editId=null;file=null;['aT','aU','aTU'].forEach(i=>$('#'+i).value='');$('#aF').value='';$('#aI').classList.add('hidden');$('#aS').classList.remove('hidden');$('#aGo').textContent='Publish video';$('#aCx').classList.add('hidden')}
+function admReset(){editId=null;file=null;setFy(50);$('#aFp').classList.add('hidden');['aT','aU','aTU'].forEach(i=>$('#'+i).value='');$('#aF').value='';$('#aI').classList.add('hidden');$('#aS').classList.remove('hidden');$('#aGo').textContent='Publish video';$('#aCx').classList.add('hidden')}
 $('#aCx').onclick=()=>{admReset();am('')};
-$('#aF').onchange=e=>{file=e.target.files[0]||null;if(file){$('#aI').src=URL.createObjectURL(file);$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden')}};
-function admList(){$('#aN').textContent=all.length;$('#aL').innerHTML=all.map(v=>'<div class="ai"><img src="'+esc(thumb(v))+'" alt=""><span>'+esc(v.title)+'</span><button data-e="'+esc(v.id)+'">Edit</button><button class="dl" data-d="'+esc(v.id)+'">Delete</button></div>').join('')}
+$('#aF').onchange=e=>{file=e.target.files[0]||null;if(file){$('#aI').src=$('#aFi').src=URL.createObjectURL(file);$('#aFp').classList.remove('hidden');setFy(50);$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden')}};
+function admList(){$('#aN').textContent=all.length;$('#aV').textContent=kfmt(all.reduce((s,v)=>s+(v.views||0),0));$('#aL').innerHTML=all.map(v=>'<div class="ai"><img src="'+esc(thumb(v))+'" style="'+pos(v)+'" alt=""><span>'+esc(v.title)+'<br><small style="color:#b5a8c9">'+EYE+' '+kfmt(v.views)+' views'+(isNew(v)?' · 🔥 NEW':'')+'</small></span><button data-e="'+esc(v.id)+'">Edit</button><button class="dl" data-d="'+esc(v.id)+'">Delete</button></div>').join('')}
 $('#aL').onclick=async e=>{const d=e.target.dataset.d,ed=e.target.dataset.e;
- if(ed){const v=all.find(x=>x.id===ed);if(!v)return;editId=ed;$('#aT').value=v.title||'';$('#aU').value=v.url;$('#aTU').value=v.thumb||'';$('#aI').src=thumb(v);$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden');$('#aGo').textContent='Save changes';$('#aCx').classList.remove('hidden');scrollTo(0,0);$('#adm').scrollTop=0}
+ if(ed){const v=all.find(x=>x.id===ed);if(!v)return;editId=ed;$('#aT').value=v.title||'';$('#aU').value=v.url;$('#aTU').value=v.thumb||'';$('#aI').src=$('#aFi').src=thumb(v);setFy(v.pos==null?50:v.pos);$('#aFp').classList.remove('hidden');$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden');$('#aGo').textContent='Save changes';$('#aCx').classList.remove('hidden');scrollTo(0,0);$('#adm').scrollTop=0}
  if(d&&confirm('Delete this video?')){try{await api('/videos/'+d+'.json',{method:'DELETE'},3);toast('Deleted');await loadVideos()}catch(x){toast('Delete failed: '+x.message)}}};
 async function b64(f){try{const b=await createImageBitmap(f),s=Math.min(1,720/b.width),c=document.createElement('canvas');c.width=Math.round(b.width*s);c.height=Math.round(b.height*s);c.getContext('2d').drawImage(b,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.82).split(',')[1]}
  catch(e){return await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(',')[1]);r.onerror=no;r.readAsDataURL(f)})}}
@@ -328,10 +352,52 @@ $('#aGo').onclick=async()=>{
   if(file){am('Uploading thumbnail…');th=await upImg(file)}
   if(!th)throw Error('Pick a thumbnail or paste a link');
   am('Saving…');
-  if(editId)await api('/videos/'+editId+'.json',{method:'PATCH',body:JSON.stringify({title:t,url:u,thumb:th})},3);
-  else await api('/videos.json',{method:'POST',body:JSON.stringify({title:t,url:u,thumb:th,at:Date.now()})},3);
+  if(editId)await api('/videos/'+editId+'.json',{method:'PATCH',body:JSON.stringify({title:t,url:u,thumb:th,pos:Math.round(fy)})},3);
+  else await api('/videos.json',{method:'POST',body:JSON.stringify({title:t,url:u,thumb:th,pos:Math.round(fy),views:0,at:Date.now()})},3);
   toast(editId?'Saved ✓':'Published ✓');admReset();am('Done ✓');await loadVideos()
  }catch(x){am(x.message||'Failed',1)}
+ b.disabled=false};
+
+/* ---- thumbnail focus (drag) ---- */
+let fy=50;const fi=$('#aFi'),fp=$('#aFp');let fd=false;
+function setFy(y){fy=Math.max(0,Math.min(100,y));fi.style.objectPosition='50% '+fy+'%'}
+const fmv=e=>{const r=fp.getBoundingClientRect();setFy((e.clientY-r.top)/r.height*100)};
+fp.onpointerdown=e=>{fd=true;fp.setPointerCapture(e.pointerId);fmv(e)};fp.onpointermove=e=>{if(fd)fmv(e)};fp.onpointerup=fp.onpointercancel=()=>{fd=false};
+$('#aTU').oninput=e=>{const u=e.target.value.trim();if(/^https?:/.test(u)&&!file){fi.src=u;fp.classList.remove('hidden')}};
+
+/* ---- unique views: one per Telegram user per video ---- */
+const UID=U?String(U.id):(ls.g('did',null)||(()=>{const d='d'+Math.random().toString(36).slice(2,11);ls.s('did',d);return d})());
+async function countView(v){
+ vc=true;const k='v:'+UID+':'+v.id;if(ls.g(k,0))return;ls.s(k,1);
+ try{const p='/views/'+v.id+'/'+UID+'.json';
+  if(await api(p,null,2)!=null)return;
+  await api(p,{method:'PUT',body:String(Date.now())},3);
+  await api('/videos/'+v.id+'.json',{method:'PATCH',body:'{"views":{".sv":{"increment":1}}}'},4);
+  v.views=(v.views||0)+1;if(curV===v)$('#pV').innerHTML=EYE+' '+kfmt(v.views)+' views'
+ }catch(e){ls.s(k,0)}}
+if(U&&!ls.g('reg:'+U.id,0))api('/users/'+U.id+'.json',{method:'PUT',body:JSON.stringify({n:U.first_name||'',u:U.username||'',t:Date.now()})},3).then(()=>ls.s('reg:'+U.id,1)).catch(()=>{});
+
+/* ---- broadcast notification (runs on the admin's phone) ---- */
+const nm=(t,e)=>{const x=$('#nM');x.textContent=t;x.className='am'+(e?' e':'')};
+const MSG=n=>'💋 <b>'+n+' new romantic video'+(n>1?'s':'')+' just dropped on Midnight Desi!</b>\n\nFresh, passionate and made for tonight ♥\nOpen the app, tap any video and enjoy the show. Please enjoy! 🔥\n\n👉 <a href="'+CFG.APP_URL+'">Open Midnight Desi</a>';
+async function tgSend(tok,id,text){
+ for(let i=0;i<3;i++){try{
+  const r=await fetch('https://api.telegram.org/bot'+tok+'/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:id,text:text,parse_mode:'HTML',link_preview_options:{is_disabled:true},reply_markup:{inline_keyboard:[[{text:'▶ Open & Enjoy',web_app:{url:CFG.APP_URL}}]]}})}),j=await r.json();
+  if(j.ok)return true;if(j.error_code===429){await sleep(((j.parameters&&j.parameters.retry_after)||2)*1000+200);continue}return j.error_code||0
+ }catch(e){await sleep(800)}}return 0}
+$('#nGo').onclick=async()=>{
+ const n=parseInt($('#nN').value,10),tok=$('#nTok').value.trim(),b=$('#nGo');
+ if(!(n>0))return nm('Enter how many videos were added',1);if(!tok)return nm('Enter the bot token',1);
+ ls.s('btk',tok);b.disabled=true;
+ try{nm('Loading users…');const u=await api('/users.json?shallow=true'),ids=Object.keys(u||{});
+  if(!ids.length)throw Error('No users saved yet');
+  if(!confirm('Send the "'+n+' new videos" notification to '+ids.length+' users?')){nm('');b.disabled=false;return}
+  let ok=0,bad=0;
+  for(let i=0;i<ids.length;i++){const r=await tgSend(tok,ids[i],MSG(n));
+   if(r===401||r===404)throw Error('Invalid bot token');r===true?ok++:bad++;
+   if(i%10===0||i===ids.length-1)nm('Sending… '+(i+1)+'/'+ids.length+' · ✅ '+ok+' · ❌ '+bad);await sleep(60)}
+  nm('Done ✓ Delivered '+ok+' · Failed '+bad+' (blocked the bot or never started it)')
+ }catch(x){nm(x.message||'Failed',1)}
  b.disabled=false};
 
 loadVideos();
