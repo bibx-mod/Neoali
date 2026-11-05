@@ -11,18 +11,19 @@
 :root{--bg:#0b0610;--bg2:#150b1f;--card:#1a1026;--rose:#ff4d8d;--violet:#8b5cff;--gold:#ffcf8b;--ts:#b5a8c9;--grad:linear-gradient(135deg,#ff4d8d,#8b5cff);--glow:rgba(255,77,141,.45);--bh:58px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
-body{font-family:Roboto,Inter,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#fff;padding-bottom:calc(var(--bh) + 24px + env(safe-area-inset-bottom));overflow-x:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body{font-family:Inter,Roboto,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#fff;padding-bottom:calc(var(--bh) + 24px + env(safe-area-inset-bottom));overflow-x:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 15% 0,rgba(255,77,141,.12),transparent 45%),radial-gradient(circle at 90% 30%,rgba(139,92,255,.12),transparent 45%)}
 body.noscroll{overflow:hidden}img{display:block;-webkit-user-drag:none}.hidden{display:none!important}
 input,textarea,select{-webkit-user-select:text;user-select:text;font:inherit}
-
-/* gate */
+button{font:inherit;cursor:pointer}
 .gate{display:none;position:fixed;inset:0;z-index:2000;background:var(--bg);align-items:center;justify-content:center;text-align:center;padding:30px;flex-direction:column}
 body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none!important}
-.gate p{color:var(--ts);line-height:1.6;max-width:320px;margin:12px 0 24px}.heart{font-size:54px;animation:beat 1.4s infinite}
+.gate p{color:var(--ts);line-height:1.6;max-width:320px;margin:12px 0 22px}.heart{font-size:54px;animation:beat 1.4s infinite}
 @keyframes beat{50%{transform:scale(1.18)}}
+#join{display:none;position:fixed;inset:0;z-index:1900;background:var(--bg);align-items:center;justify-content:center;text-align:center;padding:30px;flex-direction:column;gap:10px}
+body.needjoin #join{display:flex}body.needjoin>*:not(#join):not(.gate):not(script):not(.gt){display:none!important}
+#join p{color:var(--ts);line-height:1.6;max-width:320px;margin-bottom:10px}
 
-/* header (YouTube style: logo row + chips) */
 #top{position:sticky;top:0;z-index:100;background:rgba(11,6,16,.97)}
 .tr{display:flex;align-items:center;gap:10px;padding:8px 12px 4px}
 .brand{display:flex;align-items:center;gap:7px;flex:none}
@@ -38,7 +39,6 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .chip.on{background:var(--grad);box-shadow:0 4px 14px var(--glow)}
 .chip.hot::after{content:'';position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:#ff6a00;box-shadow:0 0 8px #ff6a00}
 
-/* hero */
 .hero{position:relative;margin:8px 12px 0;border-radius:16px;overflow:hidden;aspect-ratio:16/9;max-height:56vh;background:var(--bg2)}
 .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s}.slide.active{opacity:1;z-index:1}
 .slide img{width:100%;height:100%;object-fit:cover}.slide.active img{animation:kb 9s ease-out forwards}
@@ -51,13 +51,12 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:rgba(255,77,141,.2);color:var(--gold);border:1px solid rgba(255,77,141,.4);margin-bottom:8px}
 .ht{font-size:clamp(17px,4.6vw,30px);font-weight:800;line-height:1.2;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-shadow:0 2px 16px rgba(0,0,0,.8)}
 .hb{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;cursor:pointer;font-size:14px;font-weight:700;padding:10px 20px;border-radius:40px;display:inline-flex;align-items:center;gap:8px;color:#fff}
+.btn{border:0;font-size:14px;font-weight:700;padding:10px 20px;border-radius:40px;display:inline-flex;align-items:center;gap:8px;color:#fff}
 .bp{background:var(--grad);box-shadow:0 6px 20px var(--glow)}.bp:active{transform:scale(.95)}.bp:disabled{opacity:.5}
 .bg{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22)}
 .dots{position:absolute;right:12px;bottom:16px;z-index:5;display:flex;gap:5px}
 .dot{width:6px;height:6px;border-radius:10px;background:rgba(255,255,255,.4);transition:.3s}.dot.active{width:20px;background:var(--grad)}
 
-/* sections / shelves */
 .sec{margin-top:6px}.sh{display:flex;align-items:center;justify-content:space-between;padding:16px 14px 8px}
 .st{font-size:18px;font-weight:800}.st i{font-style:normal;margin-right:6px}
 .st.newT{text-shadow:0 0 14px rgba(255,106,0,.85)}
@@ -65,7 +64,6 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .row{display:flex;gap:12px;overflow-x:auto;padding:2px 12px 8px;scroll-snap-type:x proximity;scroll-padding-left:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.row::-webkit-scrollbar{display:none}
 .row .yc{flex:0 0 auto;width:74vw;max-width:300px;scroll-snap-align:start}.row .av{display:none}.row .yi{padding-left:2px}
 
-/* YouTube-style card */
 .feed{display:grid;grid-template-columns:1fr;gap:18px;padding:6px 12px;max-width:1400px;margin:0 auto}
 @media(min-width:640px){.feed{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.feed{grid-template-columns:repeat(3,1fr)}}@media(min-width:1300px){.feed{grid-template-columns:repeat(4,1fr)}}
 .yc{cursor:pointer;content-visibility:auto;contain-intrinsic-size:auto 300px}
@@ -77,23 +75,20 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .ym{min-width:0}
 .vt{font-size:14.5px;line-height:1.35;font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .vs{font-size:12.5px;color:var(--ts);margin-top:3px}
-.nw{position:absolute;top:8px;left:8px;z-index:2;font-size:10.5px;font-weight:900;letter-spacing:.6px;padding:3px 9px;border-radius:7px;color:#fff;background:linear-gradient(135deg,#ff6a00,#ff2d55)}
-.nw::after{content:'';position:absolute;inset:-3px;border-radius:10px;background:inherit;filter:blur(7px);opacity:.75;z-index:-1;animation:glow 1.3s ease-in-out infinite alternate}
-@keyframes glow{to{opacity:.15;transform:scale(1.25)}}
+.nw{position:absolute;top:8px;left:8px;z-index:2;font-size:10.5px;font-weight:900;letter-spacing:.6px;padding:3px 9px;border-radius:7px;background:linear-gradient(135deg,#ff6a00,#ff2d55)}
 .rk{position:absolute;left:8px;bottom:8px;z-index:2;font-size:11px;font-weight:800;padding:2px 8px;border-radius:6px;background:rgba(0,0,0,.75);color:var(--gold)}
 .msg{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ts);line-height:1.7}
 .ld{border:3px solid rgba(255,255,255,.1);border-top-color:var(--rose);border-radius:50%;width:40px;height:40px;animation:sp 1s linear infinite;margin:0 auto 18px}@keyframes sp{to{transform:rotate(360deg)}}
 
-/* banner */
 .banner{position:fixed;left:0;right:0;bottom:0;z-index:900;height:calc(var(--bh) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);display:flex;align-items:center;justify-content:center;background:rgba(11,6,16,.96);border-top:1px solid rgba(255,255,255,.07)}
 .banner iframe{width:320px;height:50px;border:0;overflow:hidden}body.fs .banner{display:none}
 
-/* player (YouTube watch page) */
+/* player */
 .pv{position:fixed;inset:0;z-index:500;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;padding-bottom:calc(var(--bh) + 24px + env(safe-area-inset-bottom));transform:translateY(100%);visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s}
 .pv.open{transform:none;visibility:visible}
 .pw{position:sticky;top:0;z-index:30;width:100%;max-width:1000px;margin:0 auto;aspect-ratio:16/9;background:#000;overflow:hidden;touch-action:manipulation}
+.pw.vert{width:min(100%,calc(68dvh*9/16));aspect-ratio:9/16}
 .pw.ffs{position:fixed;inset:0;z-index:700;width:100vw;height:100dvh;max-width:none;aspect-ratio:auto;margin:0}
-.pw:fullscreen{max-width:none;aspect-ratio:auto;height:100%}
 .pw video{width:100%;height:100%;display:block;background:#000;object-fit:contain}
 .po{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;transition:opacity .25s;background:linear-gradient(180deg,rgba(0,0,0,.5),transparent 30%,transparent 55%,rgba(0,0,0,.85))}
 .pw.idle .po{opacity:0}.pw.idle .pc button,.pw.idle .pb,.pw.idle .pk{pointer-events:none}
@@ -102,7 +97,7 @@ body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none
 .pc button{pointer-events:auto;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:50%;background:rgba(255,255,255,.16)}
 .sk{width:46px;height:46px;font-size:12px;font-weight:800}.big{width:66px;height:66px;font-size:26px;background:var(--grad)!important;box-shadow:0 0 26px var(--glow);border:0!important}
 .buf{position:absolute;top:50%;left:50%;margin:-22px 0 0 -22px;display:none;width:44px;height:44px;z-index:3}.pw.bfr .buf{display:block}
-.sl{position:absolute;top:calc(50% + 34px);left:0;right:0;text-align:center;font-size:12px;color:var(--ts);display:none;z-index:3;text-shadow:0 1px 4px #000}.pw.bfr .sl.on{display:block}
+.sl{position:absolute;top:calc(50% + 34px);left:0;right:0;text-align:center;font-size:12px;color:var(--ts);display:none;z-index:3}.pw.bfr .sl.on{display:block}
 .pb{padding:0 14px 8px;position:relative;z-index:2}
 .seek{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:5px;outline:0;margin:8px 0 6px;background:linear-gradient(90deg,var(--rose) var(--p,0%),transparent var(--p,0%)),linear-gradient(90deg,rgba(255,255,255,.5) var(--b,0%),rgba(255,255,255,.22) var(--b,0%))}
 .seek::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 10px var(--rose)}
@@ -116,9 +111,17 @@ body.fs .pv{overflow:hidden}
 .pinfo{max-width:1000px;margin:0 auto;padding:12px 14px 4px}
 .ptt{font-size:17px;font-weight:700;line-height:1.35}
 .pm{color:var(--ts);font-size:13px;margin-top:5px}
+.acts{display:flex;gap:8px;margin-top:12px}
+.act{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:30px;padding:8px 16px;font-size:13.5px;font-weight:700}
+.act.on{background:var(--grad);border-color:transparent;box-shadow:0 4px 14px var(--glow)}
 .pch{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
 .pch small{color:var(--ts)}
 .err{color:#ff7aa2;font-size:13px;margin-top:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.err button{padding:6px 14px;font-size:13px}
+.cm{max-width:1000px;margin:0 auto;padding:6px 14px}
+.cf{display:flex;gap:8px;margin:10px 0}
+.cf input{flex:1;min-width:0;padding:11px 14px;border-radius:30px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-size:16px;outline:0}.cf input:focus{border-color:var(--rose)}
+.ci{display:flex;gap:10px;padding:8px 0}.ci .av{width:30px;height:30px;font-size:13px;font-weight:800}
+.ci b{font-size:12.5px;color:var(--gold)}.ci small{color:var(--ts);margin-left:6px}.ci p{font-size:14px;line-height:1.4;margin-top:2px;word-break:break-word;-webkit-user-select:text;user-select:text}
 .gt{position:fixed;left:50%;bottom:calc(var(--bh) + 20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:3000;background:rgba(30,18,44,.97);border:1px solid rgba(255,255,255,.15);padding:10px 18px;border-radius:30px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;max-width:90vw;text-align:center}.gt.show{opacity:1;transform:translate(-50%,0)}
 
 /* admin */
@@ -134,22 +137,19 @@ body.fs .pv{overflow:hidden}
 .am{font-size:13px;color:var(--gold);min-height:18px;line-height:1.5}.am.e{color:#ff7aa2}
 .al{max-width:600px;margin:0 auto;padding:0 14px}
 .ai{display:flex;gap:10px;align-items:center;background:var(--card);border-radius:12px;padding:8px;margin-bottom:8px}
-.ai img{width:80px;height:45px;object-fit:cover;border-radius:6px;flex:none}.ai span{flex:1;font-size:13px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ai img{width:80px;height:45px;object-fit:cover;border-radius:6px;flex:none}.ai span{flex:1;font-size:13px;overflow:hidden;word-break:break-all}
 .ai button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px}.ai .dl{color:#ff7aa2}
 .fp{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;touch-action:none;cursor:ns-resize;border:2px solid var(--rose)}
 .fp img{width:100%;height:100%;object-fit:cover;pointer-events:none}
 .fp small{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:11px;padding:4px;background:rgba(0,0,0,.6);pointer-events:none}
 .bc{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)}
-.svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;vertical-align:-3px}
-
-/* low-end phones (<=2GB RAM / <=4 cores): no heavy effects */
-body.lite::before{display:none}
-.lite .petals{display:none}.lite .slide.active img{animation:none}.lite .nw::after{animation:none;filter:none;opacity:.5}
-.lite .pv{transition:none}.lite .slide{transition:none}
+body.lite::before,.lite .petals{display:none}.lite .slide.active img{animation:none}.lite .pv,.lite .slide{transition:none}
 </style></head>
 <body oncontextmenu="return false" ondragstart="return false">
 
 <div class="gate"><div class="heart">♥</div><div class="logo" style="font-size:30px">Midnight <span>Desi</span></div><p>This app works only inside Telegram.<br>Open it from our Telegram bot to continue.</p></div>
+<div id="join"><div class="heart">🔒</div><div class="logo" style="font-size:26px">Join to continue</div><p>Join our Telegram channel first, then come back and tap “I’ve joined”.</p>
+ <button class="btn bp" id="jGo">Join channel</button><button class="btn bg" id="jOk">I’ve joined</button></div>
 
 <header id="top">
  <div class="tr"><div class="brand"><div class="bi">▶</div><div class="logo">Midnight <span>Desi</span></div></div>
@@ -182,14 +182,21 @@ body.lite::before{display:none}
   <div class="tst" id="tst"></div>
   <div class="ag"><div class="ld"></div><p><b>Ad playing…</b><br>Your video starts right after ♥</p></div></div>
  <div class="pinfo"><h1 class="ptt" id="pTt">—</h1><div class="pm" id="pM"></div>
+  <div class="acts"><button class="act" id="lk">♡ <span id="lN">0</span></button><button class="act" id="cb">💬 <span id="cN">0</span></button></div>
   <div class="pch"><div class="av">♥</div><div><b>Midnight Desi</b><br><small>Romantic videos, every night</small></div></div><div class="err" id="err"></div></div>
+ <div class="cm" id="cm"><div class="cf"><input id="cI" maxlength="300" placeholder="Add a comment…" autocomplete="off"><button class="btn bp" id="cS">Post</button></div><div id="cL"></div></div>
  <div class="sh"><h2 class="st">Up next</h2></div><div class="feed" id="rel"></div>
 </div>
 
 <div class="adm" id="adm">
  <div class="pt"><button class="bk" id="admX">✕</button><div class="logo">Admin <span>Panel</span></div></div>
- <div class="fm"><input type="text" id="aT" placeholder="Video title" maxlength="150">
+ <div class="fm"><h2 class="st"><i>🔗</i>JSON sources</h2>
+  <input type="text" id="sN" placeholder="Source name (optional)"><input type="url" id="sU" placeholder="JSON link (https://...)" inputmode="url">
+  <button class="btn bp" id="sGo" style="justify-content:center">Add JSON source</button><div class="am" id="sM"></div><div id="sL"></div></div>
+
+ <div class="fm bc"><h2 class="st"><i>🎬</i>Add single video</h2><input type="text" id="aT" placeholder="Video title" maxlength="150">
  <input type="url" id="aU" placeholder="Video link (https://...)" inputmode="url">
+ <select id="aO"><option value="">Orientation: Auto-detect</option><option value="h">Horizontal (landscape)</option><option value="v">Vertical (portrait)</option></select>
  <label class="pick"><input type="file" id="aF" accept="image/*" hidden><img id="aI" class="hidden" alt=""><span id="aS">📷 Tap to pick thumbnail from gallery</span></label>
  <div class="fp hidden" id="aFp"><img id="aFi" alt=""><small>Drag up / down to choose the visible part</small></div><input type="url" id="aTU" placeholder="or paste thumbnail link (optional)" inputmode="url">
  <button class="btn bp" id="aGo" style="justify-content:center">Publish video</button><button class="btn bg hidden" id="aCx" style="justify-content:center">Cancel edit</button><div class="am" id="aM"></div></div>
@@ -198,29 +205,28 @@ body.lite::before{display:none}
  <select id="nMode"><option value="new">🔥 New videos alert</option><option value="custom">✉️ Custom message / photo / video</option></select>
  <div id="nNewBox"><input type="number" id="nN" placeholder="Number of new videos" inputmode="numeric" min="1"></div>
  <div id="nCusBox" class="hidden" style="display:flex;flex-direction:column;gap:12px">
-  <textarea id="nTxt" rows="4" maxlength="600" placeholder="Your message (English). Any news, offer, update…"></textarea>
+  <textarea id="nTxt" rows="4" maxlength="600" placeholder="Your message…"></textarea>
   <label class="pick small"><input type="file" id="nF" accept="image/*,video/*" hidden><span id="nFs">📎 Attach photo or video (optional)</span></label>
   <input type="url" id="nU" placeholder="or paste photo / video link (optional)" inputmode="url"></div>
  <input type="text" id="nBtn" placeholder="Button text (default: ▶ Open Mini App)" maxlength="30">
  <input type="password" id="nTok" placeholder="Bot token (saved only on this device)" autocomplete="off">
  <button class="btn bp" id="nGo" style="justify-content:center">Send to all users</button><button class="btn bg hidden" id="nStop" style="justify-content:center">■ Stop</button><div class="am" id="nM"></div></div>
- <div class="sh"><h2 class="st">All videos (<span id="aN">0</span>) · <span id="aV">0</span> views</h2></div><div class="al" id="aL"></div></div>
+ <div class="sh"><h2 class="st">Videos added here (<span id="aN">0</span>) · total <span id="aV">0</span> views</h2></div><div class="al" id="aL"></div></div>
 
 <div class="banner"><iframe id="bf" title="ad" scrolling="no"></iframe></div>
 <div class="gt" id="gt"></div>
 
 <script>
+/* ============ SETTINGS — the only place you normally edit ============ */
 const CFG={ADMIN_ID:8970065762,IMGBB:'https://api.imgbb.com/1/upload',IMGBB_KEY:'95ab4d76f30b4103db212111a4b85bb1',
- WAIT:7000,      // ms an ad network gets to start before the other one takes over
- MAX_AD:90000,   // safety cap for one ad
- TRIES:4,        // video reconnect attempts
- STALL:20000,    // ms of buffering before auto-retry
- AD_ON_BACK:true,// show an ad when leaving a watched video
- STRICT:false,   // true = never play if no ad could be shown
- BANNER:'ee83cc457fa55243ef8b736e7c147e96',
- APP_URL:'https://bibx-mod.github.io/Neoali/', // opened by the notification button
- PREVIEW:false}; // true = open outside Telegram (admin in browser: add #admin to URL)
-const firebaseConfig={apiKey:"AIzaSyCPKDFVw5i3Da8JPUU8GhEZssdY79qLKNA",authDomain:"app-glaxy.firebaseapp.com",databaseURL:"https://app-glaxy-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"app-glaxy",storageBucket:"app-glaxy.firebasestorage.app",messagingSenderId:"484036615126",appId:"1:484036615126:web:YOUR_WEB_APP_ID"};
+ DEFAULT_SOURCE:'Https://raw.githubusercontent.com/bibx-mod/Video-list/refs/heads/main/working_videos.json', // <- replace with your real JSON link. More links can be added in the Admin Panel.
+ CHANNEL_ID:'-1003729825757',   // numeric id like -1001234567890 (bot must be admin in the channel). Empty = join check OFF
+ CHANNEL_LINK:'https://t.me/+1UHYncak9kQ1ZDdl',
+ BOT_TOKEN:'8668180311:AAE_0Jl93Yz5R9TWK-OqSJ75kO_xvSNLrCM',    // used ONLY for the join check. Anyone can read it here — see README note; prefer a tiny proxy
+ EXPIRE_DAYS:0,   // hide videos older than N days (0 = never). Needs a date field in JSON ("at"/"date")
+ WAIT:7000,MAX_AD:90000,TRIES:4,STALL:20000,AD_ON_BACK:true,STRICT:false,
+ BANNER:'ee83cc457fa55243ef8b736e7c147e96',APP_URL:'https://bibx-mod.github.io/Neoali/',PREVIEW:false};
+const firebaseConfig={databaseURL:"https://app-glaxy-default-rtdb.asia-southeast1.firebasedatabase.app"};
 const DB=firebaseConfig.databaseURL;
 
 const $=s=>document.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -233,9 +239,12 @@ if(tg){safe(()=>tg.ready());safe(()=>tg.expand());safe(()=>tg.disableVerticalSwi
 if(IS_ADMIN)$('#admB').classList.remove('hidden');
 const LITE=!!((navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4)||/Android [4-7]\b/.test(navigator.userAgent));
 if(LITE)document.body.classList.add('lite');
+const UID=U?String(U.id):(ls.g('did',null)||(()=>{const d='d'+Math.random().toString(36).slice(2,11);ls.s('did',d);return d})());
+const UNAME=U?(U.first_name||U.username||'User'):'Guest';
 
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=(h*33^s.charCodeAt(i))>>>0;return h.toString(36)};
 const FALL='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs><linearGradient id="g"><stop offset="0" stop-color="#2a1240"/><stop offset="1" stop-color="#5a1c52"/></linearGradient></defs><rect width="400" height="225" fill="url(#g)"/><text x="200" y="130" font-size="56" text-anchor="middle" fill="#ff4d8d">♥</text></svg>');
 const isNew=v=>!!v.at&&Date.now()-v.at<864e5;
 const kfmt=n=>{n=n||0;return n>=1e6?(n/1e6).toFixed(1).replace('.0','')+'M':n>=1e3?(n/1e3).toFixed(1).replace('.0','')+'K':String(n)};
@@ -245,40 +254,57 @@ const meta=v=>'Midnight Desi · '+kfmt(v.views)+' views'+(v.at?' · '+ago(v.at):
 const fmt=t=>{if(!isFinite(t))return'0:00';const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=Math.floor(t%60);return(h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0')};
 let tT;function toast(m){const e=$('#gt');e.textContent=m;e.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>e.classList.remove('show'),2600)}
 
-/* ---- thumbnails: original -> 2nd host URL -> image proxy -> placeholder (never blank) ---- */
+/* thumbnails: original -> 2nd host -> proxy -> placeholder. Videos without a thumbnail get a clean placeholder */
 const wsrv=u=>'https://images.weserv.nl/?url='+encodeURIComponent(u)+'&w=640&output=jpg';
 function thumbs(v){const c=[],add=u=>{if(u&&/^https?:/i.test(u)){u=u.replace(/^http:/i,'https:');if(!c.includes(u))c.push(u)}};add(v.thumb);add(v.th2);if(v.thumb&&/^https?:/i.test(v.thumb))c.push(wsrv(v.thumb.replace(/^http:/i,'https:')));return c}
 function setImg(img,v){const c=thumbs(v);let i=0;img.referrerPolicy='no-referrer';img.style.objectPosition='50% '+(v.pos==null?50:v.pos)+'%';img.onerror=()=>{i++;if(i<c.length)img.src=c[i];else{img.onerror=null;img.src=FALL}};img.src=c[0]||FALL}
 const probe=(u,ms)=>new Promise(r=>{const i=new Image(),t=setTimeout(()=>{i.src='';r(false)},ms);i.onload=()=>{clearTimeout(t);r(true)};i.onerror=()=>{clearTimeout(t);r(false)};i.referrerPolicy='no-referrer';i.src=u});
 
-/* banner */
 $('#bf').srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;overflow:hidden;background:transparent}</style></head><body><scr'+'ipt>atOptions={"key":"'+CFG.BANNER+'","format":"iframe","height":50,"width":320,"params":{}};</scr'+'ipt><scr'+'ipt src="https://bicea.org/22/'+CFG.BANNER+'"></scr'+'ipt></body></html>';
 
-/* ============ FIREBASE (REST, with retries) ============ */
+/* ============ FIREBASE (REST, retries) ============ */
 async function api(path,opt,tries){tries=tries||4;let e;for(let i=0;i<tries;i++){try{const r=await fetch(DB+path,opt);if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}catch(x){e=x;await sleep(600*2**i)}}throw e}
-let all=[],feed=[],shown=0,tab='home',viral=[];const BATCH=LITE?8:14;
+let all=[],feed=[],shown=0,tab='home',viral=[],stats={},sources=[],fbVideos=[];const BATCH=LITE?8:14;
 const warmed=new Set();function warm(u){try{const o=new URL(u).origin;if(warmed.has(o))return;warmed.add(o);const l=document.createElement('link');l.rel='preconnect';l.href=o;document.head.appendChild(l)}catch(e){}}
+
+/* ---- JSON normaliser: accepts an array, {videos:[..]}, or an object of items; many field names ---- */
+function norm(raw){
+ let a=Array.isArray(raw)?raw:(raw&&(raw.videos||raw.items||raw.data))||raw;if(!Array.isArray(a))a=Object.values(a||{});
+ const out=[];for(const x0 of a){const x=typeof x0==='string'?{url:x0}:x0;if(!x)continue;
+  const url=String(x.url||x.video||x.video_url||x.src||x.link||x.file||'').replace(/^http:/i,'https:');if(!/^https?:/i.test(url))continue;
+  let at=+x.at||Date.parse(x.date||x.created_at||x.created||'')||0;if(at&&at<1e11)at*=1000;
+  const o=String(x.orientation||x.o||(x.vertical?'v':'')||'').toLowerCase()[0];
+  out.push({id:'j'+hash(url),title:x.title||x.name||x.caption||'Untitled',url,thumb:x.thumb||x.thumbnail||x.poster||x.image||x.img||'',at,o:o==='v'||o==='p'?'v':o==='h'||o==='l'?'h':''})}
+ return out}
 async function loadVideos(){
  const c=ls.g('vc',null);if(c&&!all.length)setVideos(c);
- try{const d=await api('/videos.json');const a=Object.entries(d||{}).map(([id,v])=>Object.assign({id},v)).filter(v=>v&&v.url&&/^https?:/.test(v.url)).sort((a,b)=>(b.at||0)-(a.at||0));ls.s('vc',a);setVideos(a)}
- catch(e){if(!all.length)$('#vl').innerHTML='<div class="msg" style="color:#ff7aa2">Could not load videos.<br>Check your internet.<br><br><button class="btn bp" onclick="loadVideos()">Try again</button></div>'}
+ try{
+  const [fb,src,st]=await Promise.all([api('/videos.json'),api('/sources.json').catch(()=>null),api('/stats.json').catch(()=>null)]);
+  stats=st||{};sources=Object.entries(src||{}).map(([id,s])=>Object.assign({id},s));
+  fbVideos=Object.entries(fb||{}).map(([id,v])=>Object.assign({id},v)).filter(v=>v&&v.url&&/^https?:/.test(v.url));
+  const urls=[CFG.DEFAULT_SOURCE].concat(sources.map(s=>s.url)).filter(Boolean);
+  const res=await Promise.allSettled(urls.map(u=>fetch(u).then(r=>{if(!r.ok)throw Error();return r.json()})));
+  let list=fbVideos.slice();res.forEach(r=>{if(r.status==='fulfilled')list=list.concat(norm(r.value))});
+  const seen=new Set(),ex=CFG.EXPIRE_DAYS*864e5;
+  list=list.filter(v=>{if(seen.has(v.url))return false;seen.add(v.url);return !(ex&&v.at&&Date.now()-v.at>ex)});
+  list.sort((a,b)=>(b.at||0)-(a.at||0));
+  ls.s('vc',list.map(v=>({id:v.id,title:v.title,url:v.url,thumb:v.thumb,th2:v.th2,pos:v.pos,at:v.at,o:v.o})));
+  if(!list.length&&res.every(r=>r.status==='rejected'))throw Error('no data');
+  setVideos(list)
+ }catch(e){if(!all.length)$('#vl').innerHTML='<div class="msg" style="color:#ff7aa2">Could not load videos.<br>Check your internet.<br><br><button class="btn bp" onclick="loadVideos()">Try again</button></div>'}
 }
 function setVideos(a){
- all=a;viral=shuf(a).slice(0,30);
+ all=a;all.forEach(v=>{const s=stats[v.id]||{};v.views=s.views||v.views||0;v.likes=s.likes||0;v.cm=s.cm||0;if(!v.o)v.o=ls.g('o:'+v.id,'')});
+ viral=shuf(a).slice(0,30);
  const seen=new Set();for(const v of a){if(seen.size>=4)break;try{seen.add(new URL(v.url).origin)}catch(e){}}seen.forEach(o=>warm(o));
  $('[data-t=new]').classList.toggle('hot',a.some(isNew));
- initHero();rows();render();if(IS_ADMIN)admList()
+ initHero();rows();render();if(IS_ADMIN){admList();srcList()}
 }
 function card(v,o){o=o||{};
  const c=document.createElement('div');c.className='yc';
- c.innerHTML='<div class="tw"><img alt="" decoding="async" loading="lazy" width="320" height="180">'+(isNew(v)?'<span class="nw">🔥 NEW</span>':'')+(o.rank?'<span class="rk">#'+o.rank+'</span>':'')+'</div><div class="yi"><div class="av">♥</div><div class="ym"><div class="vt">'+esc(v.title||'Untitled')+'</div><div class="vs">'+esc(meta(v))+'</div></div></div>';
+ c.innerHTML='<div class="tw"><img alt="" decoding="async" loading="lazy" width="320" height="180">'+(isNew(v)?'<span class="nw">🔥 NEW</span>':'')+(o.rank?'<span class="rk">#'+o.rank+'</span>':'')+'</div><div class="yi"><div class="av">♥</div><div class="ym"><div class="vt">'+esc(v.title)+'</div><div class="vs">'+esc(meta(v))+'</div></div></div>';
  setImg(c.querySelector('img'),v);c.onclick=()=>play(v);return c}
 
-/* ---- ordering rules ----
-   Home   : new (last 24h) on top, then everything else newest first
-   Trending: most views first … zero views last
-   Viral  : random
-   New    : only videos added in the last 24 hours (auto-empties after 24h) */
 const byViews=()=>all.slice().sort((a,b)=>(b.views||0)-(a.views||0)||(b.at||0)-(a.at||0));
 const homeOrder=()=>all.filter(isNew).concat(all.filter(v=>!isNew(v)));
 function rows(){
@@ -350,8 +376,7 @@ function stopMedia(){clearTimeout(stallT);clearTimeout(slowT);$('#slow').classLi
 function showErr(m){$('#err').innerHTML='⚠️ '+esc(m)+' <button class="btn bp" id="rt">↻ Retry</button>';$('#rt').onclick=()=>{$('#err').innerHTML='';att=0;load(P.currentTime||ls.g('p:'+curUrl,0))}}
 function withHls(cb){if(window.Hls){cb();return}if(!hlsP)hlsP=new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js';s.onload=ok;s.onerror=()=>{hlsP=null;no()};document.head.appendChild(s)});hlsP.then(cb).catch(()=>reco('Player failed to load'))}
 const HLSCFG=t=>({maxBufferLength:LITE?20:30,maxMaxBufferLength:LITE?30:60,maxBufferSize:(LITE?20:40)*1e6,backBufferLength:10,enableWorker:!LITE,startPosition:t>5?t:-1});
-/* load() starts buffering immediately. While the ad is on screen the video downloads silently in the
-   background, so when the ad ends the video is already ready and starts instantly. */
+/* the video buffers silently behind the ad, so it starts instantly when the ad ends */
 function load(t){
  if(hls){hls.destroy();hls=null}preErr=false;const u=curUrl;
  if(/\.m3u8/i.test(u)&&!NATIVE_HLS){withHls(()=>{if(u!==curUrl||!openP)return;hls=new Hls(HLSCFG(t));hls.loadSource(u);hls.attachMedia(P);
@@ -364,9 +389,16 @@ function reco(why){
  att++;const t=P.currentTime||ls.g('p:'+curUrl,0);toast('Reconnecting ('+att+'/'+CFG.TRIES+')…');
  setTimeout(()=>{if(openP&&!pw.classList.contains('adw'))load(t)},1200*att)}
 function setMeta(v){$('#pM').textContent=kfmt(v.views)+' views'+(v.at?' · '+ago(v.at):'')}
+
+/* ---- orientation: admin choice > cached > auto-detected from the video itself ---- */
+const isVert=()=>pw.classList.contains('vert');
+function setOrient(o){pw.classList.toggle('vert',o==='v');if(pw.classList.contains('ffs'))setTimeout(fit,50)}
+P.addEventListener('loadedmetadata',()=>{if(!curV||!P.videoWidth)return;const o=P.videoHeight>P.videoWidth*1.05?'v':'h';if(curV.o!==o){curV.o=o;ls.s('o:'+curV.id,o);setOrient(o)}else if(!curV.o)setOrient(o);else ls.s('o:'+curV.id,o)});
+
 async function play(v){
  openPlayer();$('#err').innerHTML='';$('#pTt').textContent=v.title||'Untitled';setMeta(v);stopMedia();
- played=false;mem=0;curV=v;vc=false;curUrl=v.url;att=0;si=0;P.playbackRate=1;$('#spd').textContent='1x';warm(v.url);
+ played=false;mem=0;curV=v;vc=false;curUrl=v.url;att=0;si=0;P.playbackRate=1;$('#spd').textContent='1x';warm(v.url);setOrient(v.o||'h');
+ openSocial(v);
  const r=$('#rel');r.replaceChildren(...shuf(all.filter(x=>x!==v)).slice(0,LITE?8:12).map(x=>card(x)));$('#pv').scrollTop=0;
  const tk=++token;pw.classList.add('adw');
  load(ls.g('p:'+v.url,0));
@@ -378,7 +410,6 @@ async function play(v){
 function openPlayer(){if(!openP){openP=true;history.pushState({p:1},'')}$('#pv').classList.add('open');document.body.classList.add('noscroll');clearInterval(ht);if(tg&&tg.BackButton)safe(()=>tg.BackButton.show())}
 function closeP(){
  if(!openP)return;openP=false;token++;const w=played;pw.classList.remove('adw');if(pw.classList.contains('ffs'))ffs(false);
- if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
  stopMedia();curUrl='';$('#pv').classList.remove('open');document.body.classList.remove('noscroll');rh();
  if(tg&&tg.BackButton)safe(()=>tg.BackButton.hide());
  if(w&&CFG.AD_ON_BACK)setTimeout(()=>adFlow(0),400)}
@@ -387,7 +418,6 @@ $('#bk').onclick=e=>{e.stopPropagation();goBack()};addEventListener('popstate',(
 
 const tgl=()=>P.paused?P.play().catch(()=>{}):P.pause();
 function skip(s,side){P.currentTime=Math.max(0,Math.min(P.duration||0,P.currentTime+s));ptoast((s>0?'⏩ +':'⏪ ')+s+'s',side);wake()}
-/* double-tap left/right = ∓10s and NEVER pauses; single tap = show/hide controls (or play button) */
 let gT=null,lastT=0,chain=0;
 function gest(e,single){const r=pw.getBoundingClientRect(),side=(pw.classList.contains('rot')?(e.clientY-r.top)<r.height/2:(e.clientX-r.left)<r.width/2)?-1:1,n=Date.now();
  if(n-chain<700||(gT&&n-lastT<300)){clearTimeout(gT);gT=null;skip(side*10,side);chain=n;lastT=0;return}
@@ -397,9 +427,10 @@ $('#bp').onclick=e=>{e.stopPropagation();gest(e,()=>{tgl();wake()})};
 $('#sb1').onclick=e=>{e.stopPropagation();skip(-10,-1)};$('#sf1').onclick=e=>{e.stopPropagation();skip(10,1)};
 $('#mt').onclick=e=>{e.stopPropagation();P.muted=!P.muted;e.target.textContent=P.muted?'🔇':'🔊'};
 const SP=[1,1.25,1.5,2,.75];let si=0;$('#spd').onclick=e=>{e.stopPropagation();si=(si+1)%SP.length;P.playbackRate=SP[si];e.target.textContent=SP[si]+'x'};
-const fit=()=>pw.classList.toggle('rot',pw.classList.contains('ffs')&&innerHeight>innerWidth);
+/* fullscreen: vertical video stays upright and fills the screen; horizontal video is turned sideways if the phone is held upright */
+const fit=()=>pw.classList.toggle('rot',pw.classList.contains('ffs')&&!isVert()&&innerHeight>innerWidth);
 function ffs(on){pw.classList.toggle('ffs',on);document.body.classList.toggle('fs',on);
- if(on){safe(()=>tg.requestFullscreen&&tg.requestFullscreen());safe(()=>{const o=screen.orientation.lock('landscape');o&&o.catch&&o.catch(()=>{})});setTimeout(fit,450)}
+ if(on){safe(()=>tg.requestFullscreen&&tg.requestFullscreen());safe(()=>{const o=screen.orientation.lock(isVert()?'portrait':'landscape');o&&o.catch&&o.catch(()=>{})});fit();setTimeout(fit,450)}
  else{pw.classList.remove('rot');safe(()=>tg.exitFullscreen&&tg.exitFullscreen());safe(()=>screen.orientation.unlock())}}
 addEventListener('resize',()=>setTimeout(fit,150));
 $('#fs').onclick=e=>{e.stopPropagation();ffs(!pw.classList.contains('ffs'))};
@@ -413,28 +444,67 @@ P.addEventListener('waiting',()=>{if(pw.classList.contains('adw'))return;pw.clas
 ['playing','canplay'].forEach(n=>P.addEventListener(n,()=>{pw.classList.remove('bfr');clearTimeout(stallT);clearTimeout(slowT);$('#slow').classList.remove('on');if(n==='playing')played=true}));
 P.addEventListener('ended',()=>{ls.s('p:'+curUrl,0)});
 P.addEventListener('error',()=>{if(P.getAttribute('src'))reco('Playback error')});
-document.addEventListener('keydown',e=>{if(!openP)return;if(e.key===' '){e.preventDefault();tgl();wake()}if(e.key==='ArrowRight')skip(10,1);if(e.key==='ArrowLeft')skip(-10,-1);if(e.key==='Escape')goBack()});
+document.addEventListener('keydown',e=>{if(!openP)return;if(e.target.tagName==='INPUT')return;if(e.key===' '){e.preventDefault();tgl();wake()}if(e.key==='ArrowRight')skip(10,1);if(e.key==='ArrowLeft')skip(-10,-1);if(e.key==='Escape')goBack()});
+
+/* ============ VIEWS, LIKES, COMMENTS (one per Telegram account) ============ */
+const bump=(id,f,n)=>api('/stats/'+id+'/'+f+'.json',{method:'PUT',body:JSON.stringify({'.sv':{increment:n}})},3);
+async function countView(v){
+ vc=true;const k='v:'+UID+':'+v.id;if(ls.g(k,0))return;ls.s(k,1);
+ try{const p='/views/'+v.id+'/'+UID+'.json';
+  if(await api(p,null,2)!=null)return;
+  await api(p,{method:'PUT',body:String(Date.now())},3);await bump(v.id,'views',1);
+  v.views=(v.views||0)+1;if(curV===v)setMeta(v)
+ }catch(e){ls.s(k,0)}}
+let liked=false;
+const paintLike=()=>{$('#lk').classList.toggle('on',liked);$('#lk').firstChild.textContent=liked?'♥ ':'♡ ';$('#lN').textContent=kfmt(curV&&curV.likes)};
+async function openSocial(v){
+ liked=!!ls.g('l:'+UID+':'+v.id,0);paintLike();$('#cN').textContent=kfmt(v.cm);$('#cL').innerHTML='';
+ try{const l=await api('/likes/'+v.id+'/'+UID+'.json',null,2);if(curV===v&&(l!=null)!==liked){liked=l!=null;ls.s('l:'+UID+':'+v.id,liked?1:0);paintLike()}}catch(e){}
+ loadComments(v)}
+$('#lk').onclick=async()=>{const v=curV;if(!v)return;const was=liked;liked=!was;v.likes=Math.max(0,(v.likes||0)+(was?-1:1));paintLike();ls.s('l:'+UID+':'+v.id,liked?1:0);
+ try{const p='/likes/'+v.id+'/'+UID+'.json';await api(p,{method:was?'DELETE':'PUT',body:was?undefined:'1'},3);await bump(v.id,'likes',was?-1:1)}
+ catch(e){liked=was;v.likes=Math.max(0,v.likes+(was?1:-1));ls.s('l:'+UID+':'+v.id,was?1:0);if(curV===v)paintLike();toast('Could not save like')}};
+async function loadComments(v){
+ try{const d=await api('/comments/'+v.id+'.json?orderBy='+encodeURIComponent('"$key"')+'&limitToLast=40',null,2);if(curV!==v)return;
+  const a=Object.values(d||{}).sort((x,y)=>y.t-x.t);$('#cL').innerHTML=a.length?a.map(c=>'<div class="ci"><div class="av">'+esc((c.n||'?')[0].toUpperCase())+'</div><div><b>'+esc(c.n)+'</b><small>'+ago(c.t)+'</small><p>'+esc(c.x)+'</p></div></div>').join(''):'<div class="vs" style="padding:10px 0">No comments yet. Be the first ♥</div>'}catch(e){}}
+$('#cb').onclick=()=>{$('#cm').scrollIntoView({behavior:'smooth'});$('#cI').focus()};
+$('#cS').onclick=async()=>{const v=curV,x=$('#cI').value.trim().slice(0,300);if(!v||!x)return;
+ if(Date.now()-ls.g('ct',0)<8000)return toast('Please wait a few seconds');ls.s('ct',Date.now());$('#cS').disabled=true;
+ try{await api('/comments/'+v.id+'.json',{method:'POST',body:JSON.stringify({n:UNAME.slice(0,40),u:UID,x,t:Date.now()})},3);await bump(v.id,'cm',1);
+  v.cm=(v.cm||0)+1;$('#cN').textContent=kfmt(v.cm);$('#cI').value='';await loadComments(v)}catch(e){toast('Could not post comment')}
+ $('#cS').disabled=false};
+$('#cI').addEventListener('keydown',e=>{if(e.key==='Enter')$('#cS').click()});
 
 /* ============ ADMIN ============ */
-let editId=null,file=null;
-const am=(m,e)=>{const x=$('#aM');x.textContent=m;x.className='am'+(e?' e':'')};
-$('#admB').onclick=()=>{$('#adm').classList.add('open');document.body.classList.add('noscroll');$('#nN').value=all.filter(isNew).length||'';$('#nTok').value=ls.g('btk','');admList()};
+let editId=null,file=null,fy=50;
+const am=(m,e,id)=>{const x=$(id||'#aM');x.textContent=m;x.className='am'+(e?' e':'')};
+$('#admB').onclick=()=>{$('#adm').classList.add('open');document.body.classList.add('noscroll');$('#nN').value=all.filter(isNew).length||'';$('#nTok').value=ls.g('btk','');admList();srcList()};
 $('#admX').onclick=()=>{$('#adm').classList.remove('open');document.body.classList.remove('noscroll')};
-function admReset(){editId=null;file=null;setFy(50);$('#aFp').classList.add('hidden');['aT','aU','aTU'].forEach(i=>$('#'+i).value='');$('#aF').value='';$('#aI').classList.add('hidden');$('#aS').classList.remove('hidden');$('#aGo').textContent='Publish video';$('#aCx').classList.add('hidden')}
+/* JSON sources: just paste a link — videos, ads, likes, comments all work automatically */
+function srcList(){const L=$('#sL');L.innerHTML='<div class="vs" style="margin-bottom:8px">Default source is set in the code (CFG.DEFAULT_SOURCE). Added sources: '+sources.length+'</div>';
+ sources.forEach(s=>{const d=document.createElement('div');d.className='ai';d.innerHTML='<span><b>'+esc(s.name||'Source')+'</b><br><small style="color:#b5a8c9">'+esc(s.url)+'</small></span><button class="dl" data-sd="'+esc(s.id)+'">Remove</button>';L.appendChild(d)})}
+$('#sL').onclick=async e=>{const id=e.target.dataset.sd;if(!id||!confirm('Remove this source?'))return;try{await api('/sources/'+id+'.json',{method:'DELETE'},3);toast('Removed');await loadVideos()}catch(x){toast('Failed: '+x.message)}};
+$('#sGo').onclick=async()=>{const u=$('#sU').value.trim(),n=$('#sN').value.trim();if(!/^https?:\/\//.test(u))return am('Enter a valid JSON link',1,'#sM');
+ const b=$('#sGo');b.disabled=true;
+ try{am('Checking link…',0,'#sM');const r=await fetch(u),j=await r.json(),c=norm(j).length;if(!c)throw Error('No playable videos found in this JSON');
+  await api('/sources.json',{method:'POST',body:JSON.stringify({name:n||'Source',url:u,at:Date.now()})},3);
+  $('#sU').value='';$('#sN').value='';am('Added ✓ '+c+' videos found',0,'#sM');await loadVideos()}
+ catch(x){am(x.message||'Could not read this link',1,'#sM')}b.disabled=false};
+
+function setFy(y){fy=Math.max(0,Math.min(100,y));$('#aFi').style.objectPosition='50% '+fy+'%'}
+function admReset(){editId=null;file=null;setFy(50);$('#aFp').classList.add('hidden');['aT','aU','aTU'].forEach(i=>$('#'+i).value='');$('#aO').value='';$('#aF').value='';$('#aI').classList.add('hidden');$('#aS').classList.remove('hidden');$('#aGo').textContent='Publish video';$('#aCx').classList.add('hidden')}
 $('#aCx').onclick=()=>{admReset();am('')};
 $('#aF').onchange=e=>{file=e.target.files[0]||null;if(file){$('#aI').src=$('#aFi').src=URL.createObjectURL(file);$('#aFp').classList.remove('hidden');setFy(50);$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden')}};
-function admList(){$('#aN').textContent=all.length;$('#aV').textContent=kfmt(all.reduce((s,v)=>s+(v.views||0),0));const L=$('#aL');L.innerHTML='';
- all.forEach(v=>{const d=document.createElement('div');d.className='ai';d.innerHTML='<img alt=""><span>'+esc(v.title)+'<br><small style="color:#b5a8c9">'+kfmt(v.views)+' views'+(isNew(v)?' · 🔥 NEW':'')+'</small></span><button data-e="'+esc(v.id)+'">Edit</button><button class="dl" data-d="'+esc(v.id)+'">Delete</button>';setImg(d.querySelector('img'),v);L.appendChild(d)})}
+function admList(){$('#aN').textContent=fbVideos.length;$('#aV').textContent=kfmt(all.reduce((s,v)=>s+(v.views||0),0));const L=$('#aL');L.innerHTML='';
+ all.filter(v=>fbVideos.some(f=>f.id===v.id)).forEach(v=>{const d=document.createElement('div');d.className='ai';d.innerHTML='<img alt=""><span>'+esc(v.title)+'<br><small style="color:#b5a8c9">'+kfmt(v.views)+' views · '+kfmt(v.likes)+' likes'+(isNew(v)?' · 🔥 NEW':'')+'</small></span><button data-e="'+esc(v.id)+'">Edit</button><button class="dl" data-d="'+esc(v.id)+'">Delete</button>';setImg(d.querySelector('img'),v);L.appendChild(d)})}
 $('#aL').onclick=async e=>{const d=e.target.dataset.d,ed=e.target.dataset.e;
- if(ed){const v=all.find(x=>x.id===ed);if(!v)return;editId=ed;$('#aT').value=v.title||'';$('#aU').value=v.url;$('#aTU').value=v.thumb||'';setImg($('#aI'),v);setImg($('#aFi'),v);setFy(v.pos==null?50:v.pos);$('#aFp').classList.remove('hidden');$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden');$('#aGo').textContent='Save changes';$('#aCx').classList.remove('hidden');$('#adm').scrollTop=0}
+ if(ed){const v=all.find(x=>x.id===ed);if(!v)return;editId=ed;$('#aT').value=v.title||'';$('#aU').value=v.url;$('#aTU').value=v.thumb||'';$('#aO').value=v.o||'';setImg($('#aI'),v);setImg($('#aFi'),v);setFy(v.pos==null?50:v.pos);$('#aFp').classList.remove('hidden');$('#aI').classList.remove('hidden');$('#aS').classList.add('hidden');$('#aGo').textContent='Save changes';$('#aCx').classList.remove('hidden');$('#adm').scrollTop=0}
  if(d&&confirm('Delete this video?')){try{await api('/videos/'+d+'.json',{method:'DELETE'},3);toast('Deleted');await loadVideos()}catch(x){toast('Delete failed: '+x.message)}}};
 async function b64(f){try{const b=await createImageBitmap(f),s=Math.min(1,720/b.width),c=document.createElement('canvas');c.width=Math.round(b.width*s);c.height=Math.round(b.height*s);c.getContext('2d').drawImage(b,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.82).split(',')[1]}
  catch(e){return await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(',')[1]);r.onerror=no;r.readAsDataURL(f)})}}
-/* upload to ImgBB, collect every URL variant it gives back */
 async function upImg(f){const d=await b64(f);let e;
  for(let i=0;i<3;i++){try{const fd=new FormData();fd.append('image',d);const r=await fetch(CFG.IMGBB+'?key='+CFG.IMGBB_KEY,{method:'POST',body:fd}),j=await r.json();
   if(j.success){const x=j.data||{};return[x.display_url,x.url,x.image&&x.image.url,x.medium&&x.medium.url].filter(Boolean)}throw Error((j.error&&j.error.message)||'Upload failed')}catch(x){e=x;am('Upload failed, retrying ('+(i+1)+'/3)…',1);await sleep(1000*(i+1))}}throw e}
-/* make sure the thumbnail really loads BEFORE it is saved (ImgBB links can lag a few seconds) */
 async function pickWorking(c){for(let k=0;k<3;k++){for(const u of c)if(await probe(u,8000))return u;await sleep(1500)}return null}
 $('#aGo').onclick=async()=>{
  const t=$('#aT').value.trim(),u=$('#aU').value.trim();let th=$('#aTU').value.trim(),th2='';const b=$('#aGo');
@@ -445,66 +515,54 @@ $('#aGo').onclick=async()=>{
   else if(th){am('Checking thumbnail…');th=th.replace(/^http:/i,'https:');if(!(await probe(th,8000))&&!(await probe(wsrv(th),10000)))throw Error('This thumbnail link does not load. Use another image.')}
   if(!th)throw Error('Pick a thumbnail or paste a link');
   am('Saving…');
-  const base={title:t,url:u,thumb:th,th2:th2||null,pos:Math.round(fy)};
+  const base={title:t,url:u,thumb:th,th2:th2||null,pos:Math.round(fy),o:$('#aO').value||null};
   if(editId)await api('/videos/'+editId+'.json',{method:'PATCH',body:JSON.stringify(base)},3);
-  else await api('/videos.json',{method:'POST',body:JSON.stringify(Object.assign(base,{views:0,at:Date.now()}))},3);
+  else await api('/videos.json',{method:'POST',body:JSON.stringify(Object.assign(base,{at:Date.now()}))},3);
   toast(editId?'Saved ✓':'Published ✓');admReset();am('Done ✓');await loadVideos()
  }catch(x){am(x.message||'Failed',1)}
  b.disabled=false};
+{const fp=$('#aFp');let fd=false;const mv=e=>{const r=fp.getBoundingClientRect();setFy((e.clientY-r.top)/r.height*100)};
+ fp.onpointerdown=e=>{fd=true;fp.setPointerCapture(e.pointerId);mv(e)};fp.onpointermove=e=>{if(fd)mv(e)};fp.onpointerup=fp.onpointercancel=()=>{fd=false};
+ $('#aTU').oninput=e=>{const u=e.target.value.trim();if(/^https?:/.test(u)&&!file){$('#aFi').src=u;fp.classList.remove('hidden')}}}
 
-/* ---- thumbnail focus (drag) ---- */
-let fy=50;const fi=$('#aFi'),fp=$('#aFp');let fd=false;
-function setFy(y){fy=Math.max(0,Math.min(100,y));fi.style.objectPosition='50% '+fy+'%'}
-const fmv=e=>{const r=fp.getBoundingClientRect();setFy((e.clientY-r.top)/r.height*100)};
-fp.onpointerdown=e=>{fd=true;fp.setPointerCapture(e.pointerId);fmv(e)};fp.onpointermove=e=>{if(fd)fmv(e)};fp.onpointerup=fp.onpointercancel=()=>{fd=false};
-$('#aTU').oninput=e=>{const u=e.target.value.trim();if(/^https?:/.test(u)&&!file){fi.src=u;fp.classList.remove('hidden')}};
+/* ============ CHANNEL JOIN GATE ============ */
+async function isMember(){
+ if(!CFG.CHANNEL_ID||!CFG.BOT_TOKEN||!U||IS_ADMIN)return true;
+ if(Date.now()-ls.g('mj',0)<6e5)return true;
+ try{const r=await fetch('https://api.telegram.org/bot'+CFG.BOT_TOKEN+'/getChatMember?chat_id='+encodeURIComponent(CFG.CHANNEL_ID)+'&user_id='+U.id),j=await r.json();
+  if(!j.ok)return true; /* bot misconfigured: never lock real users out */
+  const ok=/^(creator|administrator|member|restricted)$/.test(j.result.status)&&j.result.status!=='left';if(ok)ls.s('mj',Date.now());return ok}catch(e){return true}}
+async function gateCheck(){const ok=await isMember();document.body.classList.toggle('needjoin',!ok);return ok}
+$('#jGo').onclick=()=>{safe(()=>tg.openTelegramLink(CFG.CHANNEL_LINK))||0;if(!tg)open(CFG.CHANNEL_LINK)};
+$('#jOk').onclick=async()=>{if(await gateCheck())toast('Welcome ♥');else toast('Not joined yet — please join the channel first')};
 
-/* ---- unique views: one per Telegram user per video ---- */
-const UID=U?String(U.id):(ls.g('did',null)||(()=>{const d='d'+Math.random().toString(36).slice(2,11);ls.s('did',d);return d})());
-async function countView(v){
- vc=true;const k='v:'+UID+':'+v.id;if(ls.g(k,0))return;ls.s(k,1);
- try{const p='/views/'+v.id+'/'+UID+'.json';
-  if(await api(p,null,2)!=null)return;
-  await api(p,{method:'PUT',body:String(Date.now())},3);
-  await api('/videos/'+v.id+'.json',{method:'PATCH',body:'{"views":{".sv":{"increment":1}}}'},4);
-  v.views=(v.views||0)+1;if(curV===v)setMeta(v)
- }catch(e){ls.s(k,0)}}
-
-/* ---- users: save every user + ask permission so the bot CAN message them (fixes "some users never get it") ---- */
+/* ============ USERS + BROADCAST ============ */
 if(U&&!ls.g('reg:'+U.id,0))api('/users/'+U.id+'.json',{method:'PUT',body:JSON.stringify({n:U.first_name||'',u:U.username||'',t:Date.now(),w:U.allows_write_to_pm?1:0})},3).then(()=>ls.s('reg:'+U.id,1)).catch(()=>{});
 function writeOk(){ls.s('wa:ok',1);api('/users/'+U.id+'.json',{method:'PATCH',body:'{"w":1}'},2).catch(()=>{});api('/dead/'+U.id+'.json',{method:'DELETE'},2).catch(()=>{})}
-function askWrite(){
- if(!tg||!U)return;
- if(U.allows_write_to_pm){if(!ls.g('wa:ok',0))writeOk();return}
- if(!tg.requestWriteAccess||ls.g('wa:ok',0)||Date.now()-ls.g('wa:t',0)<2*864e5)return;
- ls.s('wa:t',Date.now());
- setTimeout(()=>safe(()=>tg.requestWriteAccess(ok=>{if(ok)writeOk()})),5000)}
+function askWrite(){if(!tg||!U)return;if(U.allows_write_to_pm){if(!ls.g('wa:ok',0))writeOk();return}
+ if(!tg.requestWriteAccess||ls.g('wa:ok',0)||Date.now()-ls.g('wa:t',0)<2*864e5)return;ls.s('wa:t',Date.now());setTimeout(()=>safe(()=>tg.requestWriteAccess(ok=>{if(ok)writeOk()})),5000)}
 askWrite();
 
-/* ---- broadcast (runs on the admin's phone) ---- */
-const nm=(t,e)=>{const x=$('#nM');x.textContent=t;x.className='am'+(e?' e':'')};
-const HR='━━━━━━━━━━━━━━━━━━━━';
+const nm=(t,e)=>am(t,e,'#nM'),HR='━━━━━━━━━━━━━━━━━━━━';
 const boxT=t=>{const p=Math.max(0,Math.floor((26-t.length)/2));return'<pre>╔'+'═'.repeat(24)+'╗\n'+' '.repeat(p)+t+'\n╚'+'═'.repeat(24)+'╝</pre>'};
 const NEWV=[
  n=>boxT('NEW VIDEOS ADDED')+'\n🔥 <b>'+n+' fresh '+(n>1?'videos have':'video has')+' just dropped on Midnight Desi!</b>\n'+HR+'\n💋 Romantic, passionate &amp; made for tonight\n⚡ New drops never stay on top for long\n'+HR+'\n\n👇 <b>Tap the button now and watch before everyone else!</b>',
  n=>boxT('TONIGHT ON MIDNIGHT DESI')+'\n🌙 <b>'+n+' brand-new '+(n>1?'videos are':'video is')+' waiting for you…</b>\n'+HR+'\n❤️ Handpicked romantic moments\n🎬 Smooth streaming, no waiting\n'+HR+'\n\n👇 <b>Hurry — open the app and press play!</b>',
- n=>boxT('JUST ARRIVED')+'\n🚨 <b>'+n+' new '+(n>1?'videos':'video')+' added — fresh &amp; trending!</b>\n'+HR+'\n🔥 Everyone is already watching\n💫 Don\'t miss tonight\'s best picks\n'+HR+'\n\n👇 <b>Open Mini App and enjoy the show!</b>',
- n=>boxT('MIDNIGHT UPDATE')+'\n💌 <b>Your night just got better!</b>\n'+n+' new '+(n>1?'videos have':'video has')+' just landed.\n'+HR+'\n✨ Be the first to watch\n⏰ Fresh content, every single day\n'+HR+'\n\n👇 <b>Tap below &amp; start watching now!</b>'];
+ n=>boxT('JUST ARRIVED')+'\n🚨 <b>'+n+' new '+(n>1?'videos':'video')+' added — fresh &amp; trending!</b>\n'+HR+'\n🔥 Everyone is already watching\n💫 Don\'t miss tonight\'s best picks\n'+HR+'\n\n👇 <b>Open Mini App and enjoy the show!</b>'];
 const CUS=t=>boxT('MIDNIGHT DESI')+'\n\n'+esc(t)+'\n\n'+HR+'\n👇 <b>Tap the button below to open the app</b>';
 $('#nMode').onchange=e=>{const c=e.target.value==='custom';$('#nNewBox').classList.toggle('hidden',c);$('#nCusBox').classList.toggle('hidden',!c)};
 $('#nF').onchange=e=>{const f=e.target.files[0];$('#nFs').textContent=f?'📎 '+f.name+' ('+(f.size/1048576).toFixed(1)+' MB)':'📎 Attach photo or video (optional)'};
-const markup=b=>({inline_keyboard:[[{text:b,web_app:{url:CFG.APP_URL}}]]}); /* web_app button = opens the Mini App directly, no link to copy */
+const markup=b=>({inline_keyboard:[[{text:b,web_app:{url:CFG.APP_URL}}]]});
 async function tgApi(tok,method,body){
  for(let i=0;i<3;i++){try{const isF=body instanceof FormData;
   const r=await fetch('https://api.telegram.org/bot'+tok+'/'+method,{method:'POST',headers:isF?undefined:{'Content-Type':'application/json'},body:isF?body:JSON.stringify(body)}),j=await r.json();
   if(j.ok)return{ok:true,result:j.result};return{ok:false,code:j.error_code||0,desc:j.description||'',retry:(j.parameters&&j.parameters.retry_after)||0}}
   catch(e){await sleep(500*(i+1))}}return{ok:false,code:0,desc:'network'}}
 function payload(kind,id,o){
- const b={chat_id:id,protect_content:true,parse_mode:'HTML',reply_markup:markup(o.btn)}; /* protect_content = cannot forward / save */
+ const b={chat_id:id,protect_content:true,parse_mode:'HTML',reply_markup:markup(o.btn)};
  if(kind==='text'){b.text=o.text;b.link_preview_options={is_disabled:true};return['sendMessage',b]}
  if(kind==='photo'){b.photo=o.media;b.caption=o.text;return['sendPhoto',b]}
  b.video=o.media;b.caption=o.text;b.supports_streaming=true;return['sendVideo',b]}
-/* fast sender: ~27 msgs/sec (Telegram limit is 30), parallel workers, auto-wait on 429, blocked users are remembered */
 async function blast(ids,send,ui,ctl){
  let idx=0,ok=0,bad=0,fail=0,next=0,pauseUntil=0,fatal=null,done=0;const dead=[],t0=Date.now(),GAP=36;
  const gate=async()=>{const n=Date.now(),at=Math.max(n,next);next=at+GAP;if(at>n)await sleep(at-n);while(Date.now()<pauseUntil)await sleep(150)};
@@ -515,7 +573,7 @@ async function blast(ids,send,ui,ctl){
    if(r.code===401||r.code===404){fatal='Invalid bot token';return}
    if(r.code===403||(r.code===400&&/chat not found|deactivated|PEER_ID_INVALID/i.test(r.desc))){bad++;dead.push(id);break}
    a++;if(a>=4)fail++;else await sleep(400*a)}
-  done++;if(done%15===0||done===ids.length){const rate=done/((Date.now()-t0)/1000||1),eta=Math.ceil((ids.length-done)/rate);ui(done,ids.length,ok,bad,fail,eta)}}};
+  done++;if(done%15===0||done===ids.length){const rate=done/((Date.now()-t0)/1000||1);ui(done,ids.length,ok,bad,fail,Math.ceil((ids.length-done)/rate))}}};
  await Promise.all(Array.from({length:14},worker));return{ok,bad,fail,dead,fatal}}
 $('#nStop').onclick=()=>{if(window.__ctl)window.__ctl.stop=true};
 $('#nGo').onclick=async()=>{
@@ -537,15 +595,12 @@ $('#nGo').onclick=async()=>{
   if(!confirm('Send to '+ids.length+' users?'+(deadSet.size?'\n(skipping '+deadSet.size+' who blocked the bot)':'')))throw Error('');
   safe(()=>{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(x=>wl=x).catch(()=>{})});
   let ok0=0;
-  if(fobj){ /* upload the file ONCE to the first user, then everybody else gets it by file_id (much faster) */
-   nm('Uploading file…');const first=ids.shift(),fd=new FormData();fd.append('chat_id',first);fd.append('protect_content','true');fd.append('parse_mode','HTML');fd.append('reply_markup',JSON.stringify(markup(btn)));fd.append(kind,fobj);fd.append('caption',text);if(kind==='video')fd.append('supports_streaming','true');
-   const r=await tgApi(tok,kind==='photo'?'sendPhoto':'sendVideo',fd);
-   if(r.ok){ok0=1;media=kind==='photo'?r.result.photo.slice(-1)[0].file_id:r.result.video.file_id}
-   else if(r.code===401||r.code===404)throw Error('Invalid bot token');
-   else if(r.code===403||r.code===400&&/chat not found/i.test(r.desc)){ids.unshift(first);ids.push(ids.shift());/* first user blocked: retry with next */
-    const second=ids.shift();const fd2=new FormData();fd2.append('chat_id',second);fd2.append('protect_content','true');fd2.append('parse_mode','HTML');fd2.append('reply_markup',JSON.stringify(markup(btn)));fd2.append(kind,fobj);fd2.append('caption',text);if(kind==='video')fd2.append('supports_streaming','true');
-    const r2=await tgApi(tok,kind==='photo'?'sendPhoto':'sendVideo',fd2);if(!r2.ok)throw Error('Upload failed: '+(r2.desc||'try again'));ok0=1;media=kind==='photo'?r2.result.photo.slice(-1)[0].file_id:r2.result.video.file_id}
-   else throw Error('Upload failed: '+(r.desc||'try again'))}
+  if(fobj){ /* upload once to a reachable user, everyone else gets it by file_id */
+   nm('Uploading file…');let up=null;
+   for(let k=0;k<Math.min(ids.length,5)&&!up;k++){const first=ids.shift(),fd=new FormData();fd.append('chat_id',first);fd.append('protect_content','true');fd.append('parse_mode','HTML');fd.append('reply_markup',JSON.stringify(markup(btn)));fd.append(kind,fobj);fd.append('caption',text);if(kind==='video')fd.append('supports_streaming','true');
+    const r=await tgApi(tok,kind==='photo'?'sendPhoto':'sendVideo',fd);
+    if(r.ok)up=r;else if(r.code===401||r.code===404)throw Error('Invalid bot token');else if(r.code!==403&&r.code!==400)throw Error('Upload failed: '+(r.desc||'try again'))}
+   if(!up)throw Error('Upload failed: no reachable user');ok0=1;media=kind==='photo'?up.result.photo.slice(-1)[0].file_id:up.result.video.file_id}
   const res=await blast(ids,id=>{const[m,b]=payload(kind,id,{text,media,btn});return tgApi(tok,m,b)},(i,n,ok,bad,fail,eta)=>nm('Sending… '+i+'/'+n+' · ✅ '+(ok+ok0)+' · 🚫 '+bad+' · ❌ '+fail+' · ~'+eta+'s left'),ctl);
   if(res.fatal)throw Error(res.fatal);
   if(res.dead.length){const o={};res.dead.forEach(i=>o[i]=1);await api('/dead.json',{method:'PATCH',body:JSON.stringify(o)},3).catch(()=>{})}
@@ -553,9 +608,8 @@ $('#nGo').onclick=async()=>{
  }catch(x){nm(x.message||'',!!x.message)}
  safe(()=>wl&&wl.release());go.disabled=false;stop.classList.add('hidden')};
 
-loadVideos();
+gateCheck().then(ok=>{if(ok)loadVideos()});
 </script>
-<!-- ad SDKs load last so a slow ad server can never block the app from showing -->
 <script src='//libtl.com/sdk.js' data-zone='12080383' data-sdk='show_12080383'></script>
 <script src="https://app.adsgalaxy.online/sdk.js?id=144" async></script>
 </body></html>
