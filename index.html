@@ -20,9 +20,16 @@ button{font:inherit;cursor:pointer}
 body.locked .gate{display:flex}body.locked>*:not(.gate):not(script){display:none!important}
 .gate p{color:var(--ts);line-height:1.6;max-width:320px;margin:12px 0 22px}.heart{font-size:54px;animation:beat 1.4s infinite}
 @keyframes beat{50%{transform:scale(1.18)}}
-#join{display:none;position:fixed;inset:0;z-index:1900;background:var(--bg);align-items:center;justify-content:center;text-align:center;padding:30px;flex-direction:column;gap:10px}
+#join{display:none;position:fixed;inset:0;z-index:1900;background:radial-gradient(circle at 50% 0,rgba(255,77,141,.28),transparent 55%),radial-gradient(circle at 80% 100%,rgba(139,92,255,.25),transparent 50%),var(--bg);align-items:center;justify-content:center;padding:22px;overflow-y:auto}
 body.needjoin #join{display:flex}body.needjoin>*:not(#join):not(.gate):not(script):not(.gt){display:none!important}
-#join p{color:var(--ts);line-height:1.6;max-width:320px;margin-bottom:10px}
+.jc{width:100%;max-width:380px;text-align:center;padding:30px 22px;border-radius:24px;background:rgba(26,16,38,.88);border:1px solid rgba(255,77,141,.35);box-shadow:0 0 60px rgba(255,77,141,.2)}
+.jl{width:74px;height:74px;margin:0 auto 14px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 0 34px var(--glow);animation:beat 1.6s infinite}
+.jc h2{font-size:23px;font-weight:900;margin:6px 0 8px}.jc>p{color:var(--ts);line-height:1.6;font-size:14px}
+.js{text-align:left;margin:18px 0;display:flex;flex-direction:column;gap:10px}
+.js div{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.06);border-radius:14px;padding:11px 14px;font-size:14px}
+.js b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:13px}
+.jc .btn{width:100%;justify-content:center;padding:14px;font-size:15px;margin-top:10px}
+#jM{min-height:20px;margin-top:12px;font-size:13px;color:var(--gold);line-height:1.5}#jM.e{color:#ff7aa2}
 
 #top{position:sticky;top:0;z-index:100;background:rgba(11,6,16,.97)}
 .tr{display:flex;align-items:center;gap:10px;padding:8px 12px 4px}
@@ -148,8 +155,10 @@ body.lite::before,.lite .petals{display:none}.lite .slide.active img{animation:n
 <body oncontextmenu="return false" ondragstart="return false">
 
 <div class="gate"><div class="heart">♥</div><div class="logo" style="font-size:30px">Midnight <span>Desi</span></div><p>This app works only inside Telegram.<br>Open it from our Telegram bot to continue.</p></div>
-<div id="join"><div class="heart">🔒</div><div class="logo" style="font-size:26px">Join to continue</div><p>Join our Telegram channel first, then come back and tap “I’ve joined”.</p>
- <button class="btn bp" id="jGo">Join channel</button><button class="btn bg" id="jOk">I’ve joined</button></div>
+<div id="join"><div class="jc"><div class="jl">🔒</div><div class="logo" style="font-size:20px">Midnight <span>Desi</span></div>
+ <h2>Join our Telegram channel</h2><p>To watch videos you must be a member of our official channel. It only takes a few seconds.</p>
+ <div class="js"><div><b>1</b>Tap “Join Channel” below</div><div><b>2</b>Join the channel on Telegram</div><div><b>3</b>Come back &amp; tap “I’ve Joined”</div></div>
+ <button class="btn bp" id="jGo">📢 Join Channel</button><button class="btn bg" id="jOk">✅ I’ve Joined — Verify</button><div id="jM"></div></div></div>
 
 <header id="top">
  <div class="tr"><div class="brand"><div class="bi">▶</div><div class="logo">Midnight <span>Desi</span></div></div>
@@ -219,7 +228,7 @@ body.lite::before,.lite .petals{display:none}.lite .slide.active img{animation:n
 <script>
 /* ============ SETTINGS — the only place you normally edit ============ */
 const CFG={ADMIN_ID:8970065762,IMGBB:'https://api.imgbb.com/1/upload',IMGBB_KEY:'95ab4d76f30b4103db212111a4b85bb1',
- DEFAULT_SOURCE:'Https://raw.githubusercontent.com/bibx-mod/Video-list/refs/heads/main/working_videos.json', // <- replace with your real JSON link. More links can be added in the Admin Panel.
+ DEFAULT_SOURCE:'https://raw.githubusercontent.com/bibx-mod/Video-list/refs/heads/main/working_videos.json', // <- replace with your real JSON link. More links can be added in the Admin Panel.
  CHANNEL_ID:'-1003729825757',   // numeric id like -1001234567890 (bot must be admin in the channel). Empty = join check OFF
  CHANNEL_LINK:'https://t.me/+1UHYncak9kQ1ZDdl',
  BOT_TOKEN:'8668180311:AAE_0Jl93Yz5R9TWK-OqSJ75kO_xvSNLrCM',    // used ONLY for the join check. Anyone can read it here — see README note; prefer a tiny proxy
@@ -244,6 +253,7 @@ const UNAME=U?(U.first_name||U.username||'User'):'Guest';
 
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const ukey=u=>String(u).toLowerCase().replace(/^https?:\/\//,'').split('#')[0].replace(/\/+$/,'');
 const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=(h*33^s.charCodeAt(i))>>>0;return h.toString(36)};
 const FALL='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><defs><linearGradient id="g"><stop offset="0" stop-color="#2a1240"/><stop offset="1" stop-color="#5a1c52"/></linearGradient></defs><rect width="400" height="225" fill="url(#g)"/><text x="200" y="130" font-size="56" text-anchor="middle" fill="#ff4d8d">♥</text></svg>');
 const isNew=v=>!!v.at&&Date.now()-v.at<864e5;
@@ -264,7 +274,7 @@ $('#bf').srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>html,bo
 
 /* ============ FIREBASE (REST, retries) ============ */
 async function api(path,opt,tries){tries=tries||4;let e;for(let i=0;i<tries;i++){try{const r=await fetch(DB+path,opt);if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}catch(x){e=x;await sleep(600*2**i)}}throw e}
-let all=[],feed=[],shown=0,tab='home',viral=[],stats={},sources=[],fbVideos=[];const BATCH=LITE?8:14;
+const rnd={};let all=[],feed=[],shown=0,tab='home',viral=[],stats={},sources=[],fbVideos=[];const BATCH=LITE?8:14;
 const warmed=new Set();function warm(u){try{const o=new URL(u).origin;if(warmed.has(o))return;warmed.add(o);const l=document.createElement('link');l.rel='preconnect';l.href=o;document.head.appendChild(l)}catch(e){}}
 
 /* ---- JSON normaliser: accepts an array, {videos:[..]}, or an object of items; many field names ---- */
@@ -274,7 +284,7 @@ function norm(raw){
   const url=String(x.url||x.video||x.video_url||x.src||x.link||x.file||'').replace(/^http:/i,'https:');if(!/^https?:/i.test(url))continue;
   let at=+x.at||Date.parse(x.date||x.created_at||x.created||'')||0;if(at&&at<1e11)at*=1000;
   const o=String(x.orientation||x.o||(x.vertical?'v':'')||'').toLowerCase()[0];
-  out.push({id:'j'+hash(url),title:x.title||x.name||x.caption||'Untitled',url,thumb:x.thumb||x.thumbnail||x.poster||x.image||x.img||'',at,o:o==='v'||o==='p'?'v':o==='h'||o==='l'?'h':''})}
+  out.push({id:'j'+hash(ukey(url)),title:x.title||x.name||x.caption||'Untitled',url,thumb:x.thumb||x.thumbnail||x.poster||x.image||x.img||'',at,o:o==='v'||o==='p'?'v':o==='h'||o==='l'?'h':''})}
  return out}
 async function loadVideos(){
  const c=ls.g('vc',null);if(c&&!all.length)setVideos(c);
@@ -286,7 +296,7 @@ async function loadVideos(){
   const res=await Promise.allSettled(urls.map(u=>fetch(u).then(r=>{if(!r.ok)throw Error();return r.json()})));
   let list=fbVideos.slice();res.forEach(r=>{if(r.status==='fulfilled')list=list.concat(norm(r.value))});
   const seen=new Set(),ex=CFG.EXPIRE_DAYS*864e5;
-  list=list.filter(v=>{if(seen.has(v.url))return false;seen.add(v.url);return !(ex&&v.at&&Date.now()-v.at>ex)});
+  list=list.filter(v=>{const k=ukey(v.url);if(seen.has(k))return false;seen.add(k);return !(ex&&v.at&&Date.now()-v.at>ex)});
   list.sort((a,b)=>(b.at||0)-(a.at||0));
   ls.s('vc',list.map(v=>({id:v.id,title:v.title,url:v.url,thumb:v.thumb,th2:v.th2,pos:v.pos,at:v.at,o:v.o})));
   if(!list.length&&res.every(r=>r.status==='rejected'))throw Error('no data');
@@ -294,7 +304,7 @@ async function loadVideos(){
  }catch(e){if(!all.length)$('#vl').innerHTML='<div class="msg" style="color:#ff7aa2">Could not load videos.<br>Check your internet.<br><br><button class="btn bp" onclick="loadVideos()">Try again</button></div>'}
 }
 function setVideos(a){
- all=a;all.forEach(v=>{const s=stats[v.id]||{};v.views=s.views||v.views||0;v.likes=s.likes||0;v.cm=s.cm||0;if(!v.o)v.o=ls.g('o:'+v.id,'')});
+ all=a;all.forEach(v=>{if(rnd[v.id]==null)rnd[v.id]=Math.random();const s=stats[v.id]||{};v.views=s.views||v.views||0;v.likes=s.likes||0;v.cm=s.cm||0;if(!v.o)v.o=ls.g('o:'+v.id,'')});
  viral=shuf(a).slice(0,30);
  const seen=new Set();for(const v of a){if(seen.size>=4)break;try{seen.add(new URL(v.url).origin)}catch(e){}}seen.forEach(o=>warm(o));
  $('[data-t=new]').classList.toggle('hot',a.some(isNew));
@@ -305,8 +315,9 @@ function card(v,o){o=o||{};
  c.innerHTML='<div class="tw"><img alt="" decoding="async" loading="lazy" width="320" height="180">'+(isNew(v)?'<span class="nw">🔥 NEW</span>':'')+(o.rank?'<span class="rk">#'+o.rank+'</span>':'')+'</div><div class="yi"><div class="av">♥</div><div class="ym"><div class="vt">'+esc(v.title)+'</div><div class="vs">'+esc(meta(v))+'</div></div></div>';
  setImg(c.querySelector('img'),v);c.onclick=()=>play(v);return c}
 
-const byViews=()=>all.slice().sort((a,b)=>(b.views||0)-(a.views||0)||(b.at||0)-(a.at||0));
-const homeOrder=()=>all.filter(isNew).concat(all.filter(v=>!isNew(v)));
+const byViews=()=>all.slice().sort((a,b)=>(b.views||0)-(a.views||0)||rnd[a.id]-rnd[b.id]);
+const rs=a=>a.slice().sort((x,y)=>rnd[x.id]-rnd[y.id]);
+const homeOrder=()=>rs(all.filter(isNew)).concat(rs(all.filter(v=>!isNew(v))));
 function rows(){
  const nv=all.filter(isNew);$('#newS').classList.toggle('hidden',!nv.length);
  const fill=(id,a,rk)=>{const e=$('#'+id);e.innerHTML='';a.forEach((v,i)=>e.appendChild(card(v,rk?{rank:i+1}:null)));e.scrollLeft=0};
@@ -396,6 +407,7 @@ function setOrient(o){pw.classList.toggle('vert',o==='v');if(pw.classList.contai
 P.addEventListener('loadedmetadata',()=>{if(!curV||!P.videoWidth)return;const o=P.videoHeight>P.videoWidth*1.05?'v':'h';if(curV.o!==o){curV.o=o;ls.s('o:'+curV.id,o);setOrient(o)}else if(!curV.o)setOrient(o);else ls.s('o:'+curV.id,o)});
 
 async function play(v){
+ if(Date.now()-lastOk>6e4&&!(await gateCheck()))return;
  openPlayer();$('#err').innerHTML='';$('#pTt').textContent=v.title||'Untitled';setMeta(v);stopMedia();
  played=false;mem=0;curV=v;vc=false;curUrl=v.url;att=0;si=0;P.playbackRate=1;$('#spd').textContent='1x';warm(v.url);setOrient(v.o||'h');
  openSocial(v);
@@ -526,15 +538,18 @@ $('#aGo').onclick=async()=>{
  $('#aTU').oninput=e=>{const u=e.target.value.trim();if(/^https?:/.test(u)&&!file){$('#aFi').src=u;fp.classList.remove('hidden')}}}
 
 /* ============ CHANNEL JOIN GATE ============ */
+let lastOk=0,loaded=false;
 async function isMember(){
- if(!CFG.CHANNEL_ID||!CFG.BOT_TOKEN||!U||IS_ADMIN)return true;
- if(Date.now()-ls.g('mj',0)<6e5)return true;
+ if(!CFG.CHANNEL_ID||!CFG.BOT_TOKEN||!U)return true;
  try{const r=await fetch('https://api.telegram.org/bot'+CFG.BOT_TOKEN+'/getChatMember?chat_id='+encodeURIComponent(CFG.CHANNEL_ID)+'&user_id='+U.id),j=await r.json();
-  if(!j.ok)return true; /* bot misconfigured: never lock real users out */
-  const ok=/^(creator|administrator|member|restricted)$/.test(j.result.status)&&j.result.status!=='left';if(ok)ls.s('mj',Date.now());return ok}catch(e){return true}}
-async function gateCheck(){const ok=await isMember();document.body.classList.toggle('needjoin',!ok);return ok}
-$('#jGo').onclick=()=>{safe(()=>tg.openTelegramLink(CFG.CHANNEL_LINK))||0;if(!tg)open(CFG.CHANNEL_LINK)};
-$('#jOk').onclick=async()=>{if(await gateCheck())toast('Welcome ♥');else toast('Not joined yet — please join the channel first')};
+  if(!j.ok)return true; /* bot not admin / wrong id: never lock real users out */
+  const st=j.result.status,ok=st==='restricted'?j.result.is_member!==false:/^(creator|administrator|member)$/.test(st);if(ok)lastOk=Date.now();return ok}catch(e){return true}}
+async function gateCheck(){const ok=await isMember();document.body.classList.toggle('needjoin',!ok);
+ if(!ok){if(openP){played=false;closeP()}}else if(!loaded){loaded=true;loadVideos()}return ok}
+$('#jGo').onclick=()=>{if(tg)safe(()=>tg.openTelegramLink(CFG.CHANNEL_LINK));else open(CFG.CHANNEL_LINK)};
+$('#jOk').onclick=async()=>{const m=$('#jM'),b=$('#jOk');b.disabled=true;m.className='';m.textContent='Checking…';
+ if(await gateCheck())toast('Welcome ♥');else{m.className='e';m.textContent='You have not joined yet. Join the channel first, then tap Verify.'}b.disabled=false};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastOk>15000)gateCheck()});
 
 /* ============ USERS + BROADCAST ============ */
 if(U&&!ls.g('reg:'+U.id,0))api('/users/'+U.id+'.json',{method:'PUT',body:JSON.stringify({n:U.first_name||'',u:U.username||'',t:Date.now(),w:U.allows_write_to_pm?1:0})},3).then(()=>ls.s('reg:'+U.id,1)).catch(()=>{});
@@ -608,7 +623,7 @@ $('#nGo').onclick=async()=>{
  }catch(x){nm(x.message||'',!!x.message)}
  safe(()=>wl&&wl.release());go.disabled=false;stop.classList.add('hidden')};
 
-gateCheck().then(ok=>{if(ok)loadVideos()});
+gateCheck();
 </script>
 <script src='//libtl.com/sdk.js' data-zone='12080383' data-sdk='show_12080383'></script>
 <script src="https://app.adsgalaxy.online/sdk.js?id=144" async></script>
